@@ -1,0 +1,280 @@
+/* Bikin tile OpenStreetMap yang terang jadi gelap untuk tema hitam bawaan */
+.leaflet-tile-pane {
+  filter: invert(1) hue-rotate(180deg) grayscale(0.6) brightness(0.85) contrast(0.95);
+  transition: filter 0.25s ease;
+}
+
+.leaflet-container {
+  background: #202020 !important;
+  font-family: inherit;
+  transition: background-color 0.25s ease;
+}
+
+/* Tema peta putih (terang / standar OSM) */
+.map-theme-light .leaflet-tile-pane,
+.map-theme-light.leaflet-tile-pane,
+.leaflet-container.map-theme-light .leaflet-tile-pane {
+  filter: none !important;
+}
+
+.map-theme-light.leaflet-container,
+.map-theme-light .leaflet-container,
+.leaflet-container.map-theme-light {
+  background: #f4f4f5 !important;
+}
+
+/* Penanda & atribusi peta supaya senada dengan tema gelap #202020 */
+.lokaloka-pin {
+  background: none;
+  border: 0;
+}
+
+.lokaloka-food-pin {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  user-select: none;
+  cursor: pointer;
+  transform: translate(-50%, -100%);
+  transform-origin: 50% 100%;
+  transition:
+    transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity 0.2s ease;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.7));
+}
+
+.lokaloka-food-pin:hover {
+  transform: translate(-50%, -100%) scale(1.1);
+}
+
+.lokaloka-food-pin.is-selected {
+  transform: translate(-50%, -100%) scale(1.15);
+}
+
+/* Pin yang tidak cocok dengan pencarian menu diredupkan */
+.lokaloka-food-pin.is-dimmed {
+  opacity: 0.28;
+  filter: grayscale(1);
+}
+
+/* Animasi pin muncul (bergelombang lewat --pin-delay) */
+.lokaloka-food-pin > * {
+  animation: lokaloka-pin-pop 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation-delay: var(--pin-delay, 0ms);
+}
+
+@keyframes lokaloka-pin-pop {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lokaloka-food-pin > * {
+    animation: none;
+  }
+}
+
+.lokaloka-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #202020;
+  color: #ffffff;
+  padding: 4px 8px 4px 6px;
+  border-radius: 9999px;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.is-match .lokaloka-badge {
+  border-color: #f59e0b;
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.25);
+}
+
+.is-selected .lokaloka-badge {
+  background: #ffffff;
+  color: #202020;
+  border-color: #ffffff;
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.35);
+  font-weight: 700;
+}
+
+.badge-icon {
+  font-size: 12px;
+  line-height: 1;
+}
+
+.badge-label {
+  max-width: 85px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.badge-pin-tip {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #202020;
+  margin-top: -1px;
+}
+
+.is-match .badge-pin-tip {
+  border-top-color: #f59e0b;
+}
+
+.is-selected .badge-pin-tip {
+  border-top-color: #ffffff;
+}
+
+/* Mode Pin Ringkas / Minimalis (Hanya penanda pin lokasi, tanpa gambar makanan) */
+.lokaloka-compact-pin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+.compact-pin-svg {
+  width: 24px;
+  height: 30px;
+  display: block;
+  overflow: visible;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.65));
+  transition:
+    filter 0.15s ease,
+    transform 0.15s ease;
+}
+
+.compact-pin-svg .compact-pin-body {
+  fill: #f59e0b;
+  stroke: #18181b;
+  stroke-width: 1.25px;
+  transition:
+    fill 0.15s ease,
+    stroke 0.15s ease;
+}
+
+.compact-pin-svg .compact-pin-dot {
+  fill: #18181b;
+  transition: fill 0.15s ease;
+}
+
+.lokaloka-food-pin.is-compact:hover .compact-pin-svg {
+  transform: scale(1.1);
+}
+
+.lokaloka-food-pin.is-compact:hover .compact-pin-body {
+  fill: #fbbf24;
+}
+
+.lokaloka-food-pin.is-compact.is-selected {
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.85)) drop-shadow(0 4px 8px rgba(0, 0, 0, 0.8));
+}
+
+.lokaloka-food-pin.is-compact.is-selected .compact-pin-svg {
+  transform: scale(1.15);
+}
+
+.lokaloka-food-pin.is-compact.is-selected .compact-pin-body {
+  fill: #ffffff;
+  stroke: #18181b;
+  stroke-width: 1.5px;
+}
+
+.lokaloka-food-pin.is-compact.is-selected .compact-pin-dot {
+  fill: #f59e0b;
+}
+
+.lokaloka-food-pin.is-compact.is-match {
+  filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.9)) drop-shadow(0 4px 8px rgba(0, 0, 0, 0.7));
+}
+
+.lokaloka-food-pin.is-compact.is-match .compact-pin-body {
+  fill: #fbbf24;
+}
+
+/* Titik lokasi kamu (biru dengan denyut) */
+.lokaloka-user-dot {
+  position: relative;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.lokaloka-user-dot .dot,
+.lokaloka-user-dot .pulse {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 9999px;
+  transform: translate(-50%, -50%);
+}
+
+.lokaloka-user-dot .dot {
+  width: 16px;
+  height: 16px;
+  background: #4c8dff;
+  border: 3px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.lokaloka-user-dot .pulse {
+  width: 16px;
+  height: 16px;
+  background: rgba(76, 141, 255, 0.45);
+  animation: lokaloka-user-pulse 2s ease-out infinite;
+}
+
+@keyframes lokaloka-user-pulse {
+  from {
+    width: 16px;
+    height: 16px;
+    opacity: 1;
+  }
+  to {
+    width: 56px;
+    height: 56px;
+    opacity: 0;
+  }
+}
+
+.leaflet-container {
+  background: #121212 !important;
+  font-family: inherit;
+}
+
+.leaflet-control-attribution {
+  background: rgba(32, 32, 32, 0.75) !important;
+  color: #9a9a9a !important;
+  font-size: 10px;
+}
+
+.leaflet-control-attribution a {
+  color: #d0d0d0 !important;
+}
+
+.map-theme-light .leaflet-control-attribution {
+  background: rgba(255, 255, 255, 0.8) !important;
+  color: #52525b !important;
+}
+
+.map-theme-light .leaflet-control-attribution a {
+  color: #27272a !important;
+}
