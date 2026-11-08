@@ -36,4 +36,3 @@ export function ReceiptModal({ src, onClose }: { src: string; onClose: () => voi
     </div>
   );
 }
-

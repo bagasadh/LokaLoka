@@ -240,4 +240,3 @@ export function RadarInfoModal({ onClose }: { onClose: () => void }) {
     </div>
   );
 }
-
