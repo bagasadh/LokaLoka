@@ -3,6 +3,7 @@
 Aplikasi pencarian warung dan tempat makan di sekitar lokasi pengguna menggunakan OpenStreetMap dan Overpass API.
 
 ## Fitur Utama
+
 - **Peta Interaktif**: Deteksi warung dan kuliner sekitar secara realtime (bebas API key, menggunakan OpenStreetMap + Overpass).
 - **Pencarian Lokasi**: Cari tempat/alamat dan otomatis mendeteksi warung di radius area tersebut.
 - **Profil & Menu Warung**: Menampilkan detail tempat, jam buka, daftar menu beserta harga.
