@@ -39,3 +39,7 @@ package-lock.json
 
 .vercel
 .env*
+
+# Local AI / Agent tooling
+.agents/
+graphify-out/
