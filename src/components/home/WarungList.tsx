@@ -98,66 +98,76 @@ export function WarungList({
                     <p className="truncate font-display font-semibold text-foreground">{w.name}</p>
                     {isFav && <Heart className="h-3 w-3 shrink-0 fill-rose-500 text-rose-500" />}
                   </div>
-                  <div className="flex min-w-0 items-center gap-1.5 text-xs text-muted-foreground">
-                    <span className="shrink-0 font-bold text-foreground">
-                      {rating.avg ? rating.avg.toFixed(1) : "Baru"}
-                    </span>
-                    {rating.avg > 0 && <Stars value={rating.avg} size={11} />}
-                    <span className="shrink-0">({rating.count})</span>
-                    <span className="truncate">· {w.category}</span>
+                  <div className="mt-0.5 flex min-w-0 items-center gap-1.5 text-xs text-muted-foreground">
+                    {rating.avg > 0 ? (
+                      <>
+                        <span className="shrink-0 font-bold text-foreground">
+                          {rating.avg.toFixed(1)}
+                        </span>
+                        <Stars value={rating.avg} size={11} />
+                        <span className="shrink-0">({rating.count})</span>
+                        <span className="truncate">· {w.category}</span>
+                      </>
+                    ) : (
+                      <span className="truncate">{w.category}</span>
+                    )}
+                    {minPrice && (
+                      <span className="shrink-0 text-muted-foreground">
+                        · Mulai{" "}
+                        <span className="font-medium text-foreground">
+                          Rp {minPrice.toLocaleString("id-ID")}
+                        </span>
+                      </span>
+                    )}
                   </div>
 
-                  <div className="mt-1 flex flex-wrap items-center gap-1.5 text-xs">
-                    <span className={`font-medium ${OPEN_LABEL[state].cls}`}>
-                      {state === "unknown" ? "Jam buka ?" : OPEN_LABEL[state].text}
+                  <div className="mt-1.5 flex flex-wrap items-center gap-1 text-xs">
+                    <span className={`text-[11px] font-medium ${OPEN_LABEL[state].cls}`}>
+                      {state === "unknown" ? "Jam buka belum tercatat" : OPEN_LABEL[state].text}
                     </span>
                     {timing.isClosingSoon && (
-                      <span className="inline-flex items-center gap-0.5 rounded border border-amber-500/30 bg-amber-500/15 px-1.5 py-0.5 text-[9px] font-semibold text-amber-300">
-                        <span>⏳ Tutup {timing.minutesLeft} mnt lagi</span>
-                      </span>
-                    )}
-                    {timing.isLateNight && (
-                      <span className="inline-flex items-center gap-0.5 rounded border border-indigo-500/30 bg-indigo-500/15 px-1.5 py-0.5 text-[9px] font-semibold text-indigo-300">
-                        <span>🌙 Kuliner Malam</span>
-                      </span>
-                    )}
-                    {w.hasQris && (
-                      <span className="inline-flex items-center gap-0.5 rounded border border-cyan-500/30 bg-cyan-500/10 px-1.5 py-0.5 text-[9px] font-medium text-cyan-300">
-                        <CreditCard className="h-2.5 w-2.5" />
-                        <span>QRIS</span>
+                      <span className="inline-flex items-center rounded-md bg-amber-500/15 px-1.5 py-0.5 text-[10px] font-medium text-amber-300">
+                        <span>Tutup {timing.minutesLeft} mnt lagi</span>
                       </span>
                     )}
                     {priceRadar.tier === "cheap" && (
-                      <span className="inline-flex items-center gap-0.5 rounded border border-emerald-500/30 bg-emerald-500/10 px-1.5 py-0.5 text-[9px] font-medium text-emerald-300">
-                        <span>🟢 Ramah Kantong</span>
+                      <span className="inline-flex items-center gap-1 rounded-md bg-emerald-500/15 px-1.5 py-0.5 text-[10px] font-medium text-emerald-300">
+                        <ShieldCheck className="h-2.5 w-2.5" />
+                        <span>Ramah Kantong</span>
                       </span>
                     )}
                     {priceRadar.tier === "fair" && (
-                      <span className="inline-flex items-center gap-0.5 rounded border border-primary/30 bg-primary/10 px-1.5 py-0.5 text-[9px] font-medium text-primary">
+                      <span className="inline-flex items-center gap-1 rounded-md bg-emerald-500/12 px-1.5 py-0.5 text-[10px] font-medium text-emerald-300/90">
                         <ShieldCheck className="h-2.5 w-2.5" />
                         <span>Harga Wajar</span>
                       </span>
                     )}
                     {priceRadar.tier === "overpriced" && (
-                      <span className="inline-flex items-center gap-0.5 rounded border border-rose-500/30 bg-rose-500/10 px-1.5 py-0.5 text-[9px] font-medium text-rose-300">
+                      <span className="inline-flex items-center gap-1 rounded-md bg-rose-500/15 px-1.5 py-0.5 text-[10px] font-medium text-rose-300">
                         <ShieldAlert className="h-2.5 w-2.5" />
                         <span>Waspada Getok</span>
                       </span>
                     )}
+                    {w.hasQris && (
+                      <span className="inline-flex items-center gap-1 rounded-md bg-white/[0.07] px-1.5 py-0.5 text-[10px] font-medium text-foreground/85">
+                        <CreditCard className="h-2.5 w-2.5 text-muted-foreground" />
+                        <span>QRIS</span>
+                      </span>
+                    )}
+                    {timing.isLateNight && (
+                      <span className="inline-flex items-center rounded-md bg-white/[0.07] px-1.5 py-0.5 text-[10px] font-medium text-foreground/85">
+                        <span>Buka Malam</span>
+                      </span>
+                    )}
                     {hasReceipt && (
-                      <span className="inline-flex items-center gap-0.5 rounded border border-white/10 bg-white/5 px-1.5 py-0.5 text-[9px] font-medium text-foreground">
-                        <Receipt className="h-2.5 w-2.5 text-sky-400" />
+                      <span className="inline-flex items-center gap-1 rounded-md bg-white/[0.07] px-1.5 py-0.5 text-[10px] font-medium text-foreground/85">
+                        <Receipt className="h-2.5 w-2.5 text-muted-foreground" />
                         <span>Ada Struk</span>
                       </span>
                     )}
                     {w.registered && (
-                      <span className="inline-flex items-center gap-0.5 rounded border border-amber-500/25 bg-amber-500/10 px-1.5 py-0.5 text-[9px] font-medium text-amber-300">
-                        <span>Harga Pemilik</span>
-                      </span>
-                    )}
-                    {minPrice && (
-                      <span className="text-muted-foreground">
-                        · Mulai Rp {minPrice.toLocaleString("id-ID")}
+                      <span className="inline-flex items-center rounded-md bg-white/[0.07] px-1.5 py-0.5 text-[10px] font-medium text-foreground/85">
+                        <span>Terverifikasi</span>
                       </span>
                     )}
                   </div>
@@ -169,10 +179,10 @@ export function WarungList({
                     onClick={() => {
                       const added = actions.toggleBookmark(w.id);
                       toast.success(
-                        added ? `"${w.name}" disimpan ke favorit ❤️` : "Dihapus dari favorit",
+                        added ? `"${w.name}" disimpan ke favorit` : "Dihapus dari favorit",
                       );
                     }}
-                    className="grid h-8 w-8 place-items-center rounded-full bg-white/5 text-muted-foreground transition hover:bg-white/10 hover:text-foreground active:scale-90"
+                    className="grid h-8 w-8 place-items-center rounded-lg bg-white/5 text-muted-foreground transition hover:bg-white/10 hover:text-foreground active:scale-90"
                     title={isFav ? "Hapus dari favorit" : "Simpan ke favorit"}
                   >
                     <Heart
@@ -184,7 +194,7 @@ export function WarungList({
                       src={w.cover || PLACEHOLDER_COVER}
                       alt={w.name}
                       loading="lazy"
-                      className="h-16 w-16 rounded-2xl object-cover sm:h-20 sm:w-20 bg-muted border border-white/5"
+                      className="h-16 w-16 rounded-xl object-cover sm:h-20 sm:w-20 bg-muted border border-white/5"
                     />
                   </Link>
                 </div>

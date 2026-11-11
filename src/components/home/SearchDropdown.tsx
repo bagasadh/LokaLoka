@@ -61,9 +61,9 @@ export function ResultRow({
       role="option"
       aria-selected={false}
       onClick={onClick}
-      className="grid w-full grid-cols-[auto_minmax(0,1fr)] items-center gap-3 rounded-2xl px-3 py-2.5 text-left transition-colors hover:bg-white/5 active:bg-accent"
+      className="grid w-full grid-cols-[auto_minmax(0,1fr)] items-center gap-3 rounded-xl px-2.5 py-2 text-left transition-colors hover:bg-white/5 active:bg-accent"
     >
-      <span className="grid h-9 w-9 place-items-center rounded-full bg-muted/80 text-muted-foreground">
+      <span className="grid h-8 w-8 place-items-center rounded-lg bg-muted/80 text-muted-foreground">
         {icon}
       </span>
       <span className="min-w-0">
@@ -115,15 +115,15 @@ export function SearchDropdown({
   return (
     <div
       role="listbox"
-      className="absolute inset-x-0 top-full z-50 mt-2 max-h-[60dvh] overflow-y-auto overscroll-contain rounded-3xl border border-white/10 bg-card p-3 shadow-float"
+      className="absolute inset-x-0 top-full z-50 mt-2 max-h-[60dvh] overflow-y-auto overscroll-contain rounded-2xl border border-white/10 bg-card p-3 shadow-float"
     >
       {isQueryEmpty ? (
-        <div className="space-y-3.5">
+        <div className="space-y-3">
           {/* Kuliner Populer / Pencarian Cepat */}
           <div>
             <div className="mb-2 flex items-center gap-1.5 px-1 text-xs font-semibold text-muted-foreground">
               <Flame className="h-3.5 w-3.5 text-amber-400" />
-              <span>Pencarian Cepat Kuliner</span>
+              <span>Pencarian Cepat</span>
             </div>
             <div className="flex flex-wrap gap-1.5">
               {POPULAR_FOOD_QUERIES.map((item) => (
@@ -131,7 +131,7 @@ export function SearchDropdown({
                   key={item.label}
                   type="button"
                   onClick={() => handleSelectRecent(item.label)}
-                  className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-xs text-foreground transition-colors hover:border-amber-500/40 hover:bg-amber-500/10 active:scale-95"
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-2.5 py-1 text-xs text-foreground transition-colors hover:border-white/20 hover:bg-white/10 active:scale-95"
                 >
                   <span>{item.emoji}</span>
                   <span className="font-medium">{item.label}</span>
@@ -259,7 +259,7 @@ export function TopBar({
   const showDropdown = search.open;
   return (
     <div className="relative" data-search-root>
-      <label className="flex h-11 min-w-0 items-center gap-2.5 rounded-2xl border border-white/10 bg-[#262626] px-3 shadow-inner transition-colors focus-within:border-primary/50 focus-within:ring-1 focus-within:ring-primary/50">
+      <label className="flex h-10 min-w-0 items-center gap-2.5 rounded-xl border border-white/10 bg-[#262626] px-3 transition-colors focus-within:border-white/30">
         <Search className="h-4 w-4 shrink-0 text-muted-foreground" />
         <input
           value={q}
@@ -282,7 +282,7 @@ export function TopBar({
             type="button"
             aria-label="Hapus teks pencarian"
             onClick={() => setQ("")}
-            className="grid h-6 w-6 shrink-0 place-items-center rounded-full text-muted-foreground transition-colors hover:text-foreground active:scale-95"
+            className="grid h-6 w-6 shrink-0 place-items-center rounded-md text-muted-foreground transition-colors hover:text-foreground active:scale-95"
           >
             <X className="h-3.5 w-3.5" />
           </button>

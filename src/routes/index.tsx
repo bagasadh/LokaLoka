@@ -540,24 +540,19 @@ function Home() {
       >
         <div className="border-b border-white/5 p-4">
           <div className="mb-3 flex items-center justify-between">
-            <div className="flex items-center gap-2.5">
-              <Logo className="h-8 w-8 shrink-0" />
-              <div className="flex items-center gap-2">
-                <span className="font-display text-lg font-bold tracking-tight text-foreground">
-                  Lokaloka
-                </span>
-                <span className="rounded-full border border-amber-500/30 bg-amber-500/10 px-2 py-0.5 text-[10px] font-semibold text-amber-300">
-                  Radar Kuliner
-                </span>
-              </div>
+            <div className="flex items-center gap-2">
+              <Logo className="h-7 w-7 shrink-0" />
+              <span className="font-display text-lg font-bold tracking-tight text-foreground">
+                Lokaloka
+              </span>
             </div>
             <Link
               to={s.user?.ownerOf ? "/pemilik" : "/profil"}
               aria-label="Profil"
-              className="grid h-8 w-8 place-items-center rounded-full border border-white/10 bg-card text-foreground transition-all hover:bg-muted active:scale-95"
+              className="grid h-8 w-8 place-items-center rounded-lg border border-white/10 bg-card text-foreground transition-all hover:bg-muted active:scale-95"
             >
               {s.user ? (
-                <span className="grid h-6 w-6 place-items-center rounded-full bg-primary font-display text-xs font-bold text-primary-foreground">
+                <span className="grid h-6 w-6 place-items-center rounded-md bg-foreground font-display text-xs font-bold text-background">
                   {s.user.name.charAt(0).toUpperCase()}
                 </span>
               ) : (
@@ -580,19 +575,11 @@ function Home() {
             onTogglePinStyle={togglePinStyle}
           />
         </div>
-        <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-6">
+        <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-6 pt-3">
           <div className="mb-2 flex items-center justify-between pb-1">
             <p className="font-display text-base font-semibold">
               {areaTitle} · {list.length}
             </p>
-            <button
-              type="button"
-              onClick={() => setGachaOpen(true)}
-              className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-2.5 py-1 text-xs font-semibold text-amber-300 transition hover:bg-amber-500/20 active:scale-95"
-            >
-              <Dices className="h-3.5 w-3.5" />
-              <span>Gacha Kuliner</span>
-            </button>
           </div>
           <WarungList
             list={list}
@@ -649,9 +636,9 @@ function Home() {
           </div>
         )}
 
-        {/* Mobile top overlay: Integrated Radar Header */}
+        {/* Mobile top overlay: Integrated Header */}
         <header
-          className={`pointer-events-auto absolute inset-x-0 top-0 border-b border-white/10 bg-[#202020]/90 px-3 pt-safe pb-2.5 backdrop-blur-md shadow-float transition-all duration-300 ease-in-out lg:hidden ${
+          className={`pointer-events-auto absolute inset-x-0 top-0 border-b border-white/10 bg-[#202020]/95 px-3 pt-safe pb-2 backdrop-blur-md shadow-float transition-all duration-300 ease-in-out lg:hidden ${
             searchOpen ? "z-40" : "z-20"
           } ${
             isTransparent
@@ -662,15 +649,10 @@ function Home() {
           {/* Brand & Location status row */}
           <div className="mb-2 flex items-center justify-between gap-2">
             <div className="flex min-w-0 items-center gap-2">
-              <Logo className="h-7 w-7 shrink-0" />
-              <div className="flex min-w-0 items-center gap-1.5">
-                <span className="truncate font-display text-base font-bold tracking-tight text-foreground">
-                  Lokaloka
-                </span>
-                <span className="shrink-0 rounded-full border border-amber-500/30 bg-amber-500/10 px-1.5 py-0.5 text-[9px] font-semibold text-amber-300">
-                  Radar Kuliner
-                </span>
-              </div>
+              <Logo className="h-6 w-6 shrink-0" />
+              <span className="truncate font-display text-base font-bold tracking-tight text-foreground">
+                Lokaloka
+              </span>
             </div>
 
             <div className="flex shrink-0 items-center gap-1.5">
@@ -678,43 +660,40 @@ function Home() {
                 <Link
                   to="/settings"
                   aria-label="Izin lokasi nonaktif - buka pengaturan"
-                  className="flex h-7 items-center gap-1 rounded-full border border-zinc-700 bg-zinc-800/80 px-2 text-xs text-zinc-400 transition-colors hover:text-foreground"
+                  className="flex h-7 items-center gap-1 rounded-md border border-white/10 bg-white/5 px-2 text-xs text-muted-foreground transition-colors hover:text-foreground"
                 >
-                  <LocateFixed className="h-3 w-3 text-zinc-400" />
+                  <LocateFixed className="h-3 w-3 text-muted-foreground" />
                   <span className="text-[11px]">GPS Mati</span>
                 </Link>
               ) : nearby.status === "loading" ? (
-                <div className="flex h-7 items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-2.5 text-xs text-amber-300">
-                  <Loader2 className="h-3 w-3 animate-spin text-amber-400" />
-                  <span className="text-[11px] font-medium">Memindai...</span>
+                <div className="flex h-7 items-center gap-1.5 rounded-md border border-white/10 bg-white/5 px-2 text-xs text-muted-foreground">
+                  <Loader2 className="h-3 w-3 animate-spin text-foreground" />
+                  <span className="text-[11px] font-medium">Memindai…</span>
                 </div>
               ) : isPannedAway ? (
                 <button
                   onClick={goHome}
                   aria-label="Kembali ke lokasi saya"
-                  className="flex h-7 max-w-[130px] items-center gap-1 rounded-full border border-amber-500/30 bg-amber-500/10 px-2 text-xs font-medium text-amber-300 transition-colors hover:bg-amber-500/20"
+                  className="flex h-7 max-w-[130px] items-center gap-1 rounded-md border border-white/15 bg-white/10 px-2 text-xs font-medium text-foreground transition-colors hover:bg-white/15"
                 >
-                  <Navigation className="h-3 w-3 shrink-0 text-amber-400" />
+                  <Navigation className="h-3 w-3 shrink-0 text-foreground" />
                   <span className="truncate">Area Peta</span>
-                  <X className="h-3 w-3 shrink-0 text-amber-400/70" />
+                  <X className="h-3 w-3 shrink-0 text-muted-foreground" />
                 </button>
               ) : area ? (
                 <button
                   onClick={goHome}
                   aria-label={`Hapus lokasi pencarian ${area.name}`}
-                  className="flex h-7 max-w-[130px] items-center gap-1 rounded-full border border-white/10 bg-white/10 px-2 text-xs font-medium text-foreground transition-colors hover:bg-white/15"
+                  className="flex h-7 max-w-[130px] items-center gap-1 rounded-md border border-white/15 bg-white/10 px-2 text-xs font-medium text-foreground transition-colors hover:bg-white/15"
                 >
-                  <MapPin className="h-3 w-3 shrink-0 text-primary" />
+                  <MapPin className="h-3 w-3 shrink-0 text-foreground" />
                   <span className="truncate">{area.name}</span>
                   <X className="h-3 w-3 shrink-0 text-muted-foreground" />
                 </button>
               ) : (
-                <div className="flex h-7 items-center gap-1.5 rounded-full border border-white/5 bg-white/5 px-2 text-xs text-muted-foreground">
-                  <span className="relative flex h-2 w-2 shrink-0">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-                  </span>
-                  <span className="text-[11px]">Sekitar</span>
+                <div className="flex h-7 items-center gap-1.5 rounded-md px-2 text-xs text-muted-foreground">
+                  <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400" />
+                  <span className="text-[11px] font-medium">Sekitar</span>
                 </div>
               )}
 
@@ -722,10 +701,10 @@ function Home() {
               <Link
                 to={s.user?.ownerOf ? "/pemilik" : "/profil"}
                 aria-label="Profil"
-                className="grid h-7 w-7 place-items-center rounded-full border border-white/10 bg-white/10 text-foreground transition-all hover:bg-white/20 active:scale-95"
+                className="grid h-7 w-7 place-items-center rounded-lg border border-white/10 bg-white/[0.06] text-foreground transition-all hover:bg-white/12 active:scale-95"
               >
                 {s.user ? (
-                  <span className="grid h-5 w-5 place-items-center rounded-full bg-primary font-display text-[10px] font-bold text-primary-foreground">
+                  <span className="grid h-5 w-5 place-items-center rounded bg-foreground font-display text-[10px] font-bold text-background">
                     {s.user.name.charAt(0).toUpperCase()}
                   </span>
                 ) : (
@@ -819,21 +798,29 @@ function Home() {
                 : "translate-y-0 opacity-100"
             }`}
           >
-            <div className="rounded-3xl border border-white/10 bg-card/95 p-3.5 shadow-float backdrop-blur-sm">
+            <div className="rounded-2xl border border-white/10 bg-[#202020]/95 p-3.5 shadow-float backdrop-blur-md">
               <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3">
                 <img
                   src={sel.w.cover || PLACEHOLDER_COVER}
                   alt=""
-                  className="h-16 w-16 rounded-2xl object-cover bg-muted border border-white/5"
+                  className="h-16 w-16 rounded-xl object-cover bg-muted border border-white/5"
                 />
                 <div className="min-w-0">
                   <p className="truncate font-display font-bold text-foreground">{sel.w.name}</p>
                   <div className="flex min-w-0 items-center gap-1.5 text-xs text-muted-foreground">
-                    <span className="shrink-0 font-bold text-foreground">
-                      {sel.rating.avg ? sel.rating.avg.toFixed(1) : "–"}
-                    </span>
-                    <Stars value={sel.rating.avg} size={11} />
-                    <span className="truncate">· {formatDistance(sel.dist)}</span>
+                    {sel.rating.avg > 0 ? (
+                      <>
+                        <span className="shrink-0 font-bold text-foreground">
+                          {sel.rating.avg.toFixed(1)}
+                        </span>
+                        <Stars value={sel.rating.avg} size={11} />
+                        <span className="truncate">· {formatDistance(sel.dist)}</span>
+                      </>
+                    ) : (
+                      <span className="truncate">
+                        {formatDistance(sel.dist)} · {sel.w.category}
+                      </span>
+                    )}
                   </div>
                   <p className={`truncate text-xs ${OPEN_LABEL[sel.state].cls}`}>
                     {sel.state === "unknown"
@@ -845,7 +832,7 @@ function Home() {
                   <button
                     aria-label="Tutup"
                     onClick={() => setSelected(null)}
-                    className="grid h-8 w-8 place-items-center rounded-full bg-muted/80 text-muted-foreground transition-colors hover:text-foreground active:scale-95"
+                    className="grid h-8 w-8 place-items-center rounded-lg bg-muted/80 text-muted-foreground transition-colors hover:text-foreground active:scale-95"
                   >
                     ×
                   </button>
@@ -857,10 +844,10 @@ function Home() {
                     onClick={() => {
                       const added = actions.toggleBookmark(sel.w.id);
                       toast.success(
-                        added ? `"${sel.w.name}" disimpan ke favorit ❤️` : "Dihapus dari favorit",
+                        added ? `"${sel.w.name}" disimpan ke favorit` : "Dihapus dari favorit",
                       );
                     }}
-                    className="grid h-8 w-8 place-items-center rounded-full bg-muted/80 text-muted-foreground transition hover:text-foreground active:scale-90"
+                    className="grid h-8 w-8 place-items-center rounded-lg bg-muted/80 text-muted-foreground transition hover:text-foreground active:scale-90"
                     title={isBookmarked(s, sel.w.id) ? "Hapus dari favorit" : "Simpan ke favorit"}
                   >
                     <Heart
@@ -875,7 +862,7 @@ function Home() {
               </div>
               <button
                 onClick={() => navigate({ to: "/warung/$id", params: { id: sel.w.id } })}
-                className="mt-3 flex h-10 w-full items-center justify-center gap-1.5 rounded-full bg-primary text-xs font-semibold text-primary-foreground transition-transform hover:bg-primary/90 active:scale-95"
+                className="mt-3 flex h-9 w-full items-center justify-center gap-1.5 rounded-lg bg-foreground text-xs font-semibold text-background transition-transform hover:opacity-90 active:scale-95"
               >
                 <span>Lihat profil & menu</span>
                 <ArrowRight className="h-3.5 w-3.5" />

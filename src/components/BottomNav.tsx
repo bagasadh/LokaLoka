@@ -14,18 +14,16 @@ export function BottomNav({ hidden }: { hidden?: boolean } = {}) {
   const isSettingsActive = path === "/settings";
 
   const item = (active: boolean) =>
-    `flex h-full min-w-0 flex-1 flex-col items-center justify-center gap-0.5 text-[11px] font-medium transition-colors ${
-      active ? "text-foreground" : "text-muted-foreground hover:text-foreground"
-    }`;
-  const pill = (active: boolean) =>
-    `grid h-7 w-12 place-items-center rounded-full transition-colors ${
-      active ? "bg-white/12 text-foreground" : ""
+    `relative flex h-full min-w-0 flex-1 flex-col items-center justify-center gap-1 text-[11px] transition-colors ${
+      active
+        ? "font-semibold text-foreground"
+        : "font-medium text-muted-foreground hover:text-foreground"
     }`;
 
   return (
     <nav
       aria-label="Navigasi utama"
-      className={`fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-[#1c1c1c]/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-md transition-all duration-300 ease-in-out lg:hidden ${
+      className={`fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-[#202020]/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-md transition-all duration-300 ease-in-out lg:hidden ${
         hidden ? "translate-y-full opacity-0 pointer-events-none" : "translate-y-0 opacity-100"
       }`}
     >
@@ -34,9 +32,10 @@ export function BottomNav({ hidden }: { hidden?: boolean } = {}) {
         style={{ height: `${DOCK_HEIGHT_REM}rem` }}
       >
         <Link to="/" className={item(isMapActive)} aria-current={isMapActive ? "page" : undefined}>
-          <span className={pill(isMapActive)}>
-            <MapIcon className="h-[18px] w-[18px]" />
-          </span>
+          {isMapActive && (
+            <span className="absolute top-0 h-0.5 w-8 rounded-full bg-foreground" />
+          )}
+          <MapIcon className="h-[18px] w-[18px]" strokeWidth={isMapActive ? 2.25 : 1.75} />
           <span>Peta</span>
         </Link>
         <Link
@@ -44,9 +43,10 @@ export function BottomNav({ hidden }: { hidden?: boolean } = {}) {
           className={item(isSettingsActive)}
           aria-current={isSettingsActive ? "page" : undefined}
         >
-          <span className={pill(isSettingsActive)}>
-            <Settings className="h-[18px] w-[18px]" />
-          </span>
+          {isSettingsActive && (
+            <span className="absolute top-0 h-0.5 w-8 rounded-full bg-foreground" />
+          )}
+          <Settings className="h-[18px] w-[18px]" strokeWidth={isSettingsActive ? 2.25 : 1.75} />
           <span>Settings</span>
         </Link>
       </div>
