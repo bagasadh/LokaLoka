@@ -4,14 +4,10 @@ import {
   CheckCircle2,
   ChevronDown,
   ChevronUp,
-  CircleDollarSign,
   CreditCard,
-  Dices,
-  Eye,
   Heart,
   Loader2,
   LocateFixed,
-  MapPin,
   Receipt,
   ShieldAlert,
   ShieldCheck,
@@ -148,15 +144,6 @@ export function WarungCarousel({
                   )}
                 </div>
                 <div className="flex shrink-0 items-center gap-1.5">
-                  <button
-                    type="button"
-                    onClick={onOpenGacha}
-                    className="flex items-center gap-1 rounded-full border border-amber-500/30 bg-amber-500/15 px-2.5 py-0.5 text-[11px] font-semibold text-amber-300 transition hover:bg-amber-500/25 active:scale-95"
-                    title="Bingung mau makan apa? Putar Gacha!"
-                  >
-                    <Dices className="h-3 w-3" />
-                    <span>Gacha</span>
-                  </button>
                   {nearby.status === "error" && (
                     <button
                       type="button"
@@ -169,7 +156,7 @@ export function WarungCarousel({
                   <button
                     type="button"
                     onClick={() => setMobileView("list")}
-                    className="flex items-center gap-1 rounded-full bg-white/5 px-2.5 py-0.5 text-[11px] font-medium text-muted-foreground transition-colors hover:bg-white/10 hover:text-foreground active:scale-95"
+                    className="flex items-center gap-1 rounded-full bg-white/5 px-2.5 py-1 text-[11px] font-medium text-muted-foreground transition-colors hover:bg-white/10 hover:text-foreground active:scale-95"
                   >
                     <span>Daftar</span>
                     <ChevronUp className="h-3.5 w-3.5" />
@@ -180,55 +167,16 @@ export function WarungCarousel({
               <div className="flex-1" />
             )}
 
-            {/* Tombol Map Controls di Mobile (Gaya Pin, Transparan, & Lokasi Saya) */}
-            <div className="flex shrink-0 items-center gap-1.5">
-              {onToggleTransparent && (
-                <button
-                  type="button"
-                  aria-label="Mode peta transparan"
-                  onClick={onToggleTransparent}
-                  className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-white/10 bg-[#242424]/95 text-foreground shadow-float backdrop-blur-md transition-transform active:scale-90"
-                  title="Sembunyikan panel untuk melihat peta penuh (Mode Transparan)"
-                >
-                  <Eye className="h-4 w-4 text-amber-400" />
-                </button>
-              )}
-
-              <button
-                type="button"
-                aria-label={
-                  pinStyle === "badge" ? "Ganti ke mode pin ringkas" : "Ganti ke mode harga & menu"
-                }
-                onClick={togglePinStyle}
-                className="flex h-9 items-center gap-1 rounded-full border border-white/10 bg-[#242424]/95 px-2.5 text-xs font-semibold text-foreground shadow-float backdrop-blur-md transition-all active:scale-90"
-                title={
-                  pinStyle === "badge"
-                    ? "Mode penanda: Tampilkan pin ringkas"
-                    : "Mode penanda: Tampilkan harga & menu"
-                }
-              >
-                {pinStyle === "badge" ? (
-                  <>
-                    <MapPin className="h-3.5 w-3.5 text-amber-400" />
-                    <span className="text-[11px]">Pin</span>
-                  </>
-                ) : (
-                  <>
-                    <CircleDollarSign className="h-3.5 w-3.5 text-amber-400" />
-                    <span className="text-[11px]">Harga</span>
-                  </>
-                )}
-              </button>
-
-              <button
-                type="button"
-                aria-label="Lokasi saya"
-                onClick={goHome}
-                className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-white/10 bg-[#242424]/95 text-locate shadow-float backdrop-blur-md transition-transform active:scale-90"
-              >
-                <LocateFixed className="h-4 w-4" />
-              </button>
-            </div>
+            {/* Tombol Map Control (Lokasi Saya) */}
+            <button
+              type="button"
+              aria-label="Lokasi saya"
+              onClick={goHome}
+              className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-white/10 bg-[#242424]/95 text-locate shadow-float backdrop-blur-md transition-transform active:scale-90"
+              title="Pusatkan peta ke lokasi saya"
+            >
+              <LocateFixed className="h-4 w-4" />
+            </button>
           </div>
 
           {/* Horizontal cards container */}
