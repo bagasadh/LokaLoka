@@ -8,7 +8,7 @@ export const DOCK_HEIGHT_REM = 3.5;
  * Navigasi bawah khusus mobile: Peta · Settings.
  * Disembunyikan di layar besar (desktop memakai sidebar).
  */
-export function BottomNav() {
+export function BottomNav({ hidden }: { hidden?: boolean } = {}) {
   const path = useRouterState({ select: (r) => r.location.pathname });
   const isMapActive = path === "/";
   const isSettingsActive = path === "/settings";
@@ -25,7 +25,9 @@ export function BottomNav() {
   return (
     <nav
       aria-label="Navigasi utama"
-      className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-[#1c1c1c]/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-md lg:hidden"
+      className={`fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-[#1c1c1c]/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-md transition-all duration-300 ease-in-out lg:hidden ${
+        hidden ? "translate-y-full opacity-0 pointer-events-none" : "translate-y-0 opacity-100"
+      }`}
     >
       <div
         className="mx-auto flex max-w-xs items-stretch"

@@ -128,4 +128,3 @@ export function isNonFoodName(name: string): boolean {
 
   return false;
 }
-

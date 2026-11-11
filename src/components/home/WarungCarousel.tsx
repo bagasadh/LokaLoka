@@ -7,6 +7,7 @@ import {
   CircleDollarSign,
   CreditCard,
   Dices,
+  Eye,
   Heart,
   Loader2,
   LocateFixed,
@@ -52,6 +53,8 @@ export interface WarungCarouselProps {
   filters: Filter[];
   now: Date;
   onNavigateToWarung: (id: string) => void;
+  isTransparent?: boolean;
+  onToggleTransparent?: () => void;
 }
 
 export function WarungCarousel({
@@ -71,6 +74,8 @@ export function WarungCarousel({
   filters,
   now,
   onNavigateToWarung,
+  isTransparent,
+  onToggleTransparent,
 }: WarungCarouselProps) {
   const s = useStore();
 
@@ -119,7 +124,13 @@ export function WarungCarousel({
           </div>
         </>
       ) : (
-        <div className="absolute inset-x-0 bottom-dock z-30 pt-1 pb-1">
+        <div
+          className={`absolute inset-x-0 bottom-dock z-30 pt-1 pb-1 transition-all duration-300 ease-in-out ${
+            isTransparent
+              ? "translate-y-full opacity-0 pointer-events-none"
+              : "translate-y-0 opacity-100"
+          }`}
+        >
           {/* Bar di atas carousel: Info warung di kiri, Tombol GPS di kanan */}
           <div className="mx-3 mb-2 flex items-center justify-between gap-2">
             {list.length > 0 ? (
@@ -169,8 +180,20 @@ export function WarungCarousel({
               <div className="flex-1" />
             )}
 
-            {/* Tombol Map Controls di Mobile (Gaya Pin & Lokasi Saya) */}
+            {/* Tombol Map Controls di Mobile (Gaya Pin, Transparan, & Lokasi Saya) */}
             <div className="flex shrink-0 items-center gap-1.5">
+              {onToggleTransparent && (
+                <button
+                  type="button"
+                  aria-label="Mode peta transparan"
+                  onClick={onToggleTransparent}
+                  className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-white/10 bg-[#242424]/95 text-foreground shadow-float backdrop-blur-md transition-transform active:scale-90"
+                  title="Sembunyikan panel untuk melihat peta penuh (Mode Transparan)"
+                >
+                  <Eye className="h-4 w-4 text-amber-400" />
+                </button>
+              )}
+
               <button
                 type="button"
                 aria-label={
@@ -241,12 +264,24 @@ export function WarungCarousel({
                     <div className="grid grid-cols-[auto_minmax(0,1fr)] items-start gap-2.5">
                       <img
                         src={w.cover || PLACEHOLDER_COVER}
-                        alt=""
-                        className="h-18 w-18 shrink-0 rounded-2xl object-cover bg-muted border border-white/5"
+                        alt={w.name}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onNavigateToWarung(w.id);
+                        }}
+                        className="h-18 w-18 shrink-0 rounded-2xl object-cover bg-muted border border-white/5 hover:opacity-90 transition-opacity"
+                        title="Buka profil warung"
                       />
                       <div className="min-w-0">
                         <div className="flex items-start justify-between gap-1.5">
-                          <p className="truncate font-display text-sm font-bold text-foreground">
+                          <p
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              onNavigateToWarung(w.id);
+                            }}
+                            className="truncate font-display text-sm font-bold text-foreground hover:text-primary transition-colors"
+                            title="Buka profil warung"
+                          >
                             {w.name}
                           </p>
                           <div className="flex shrink-0 items-center gap-1">
@@ -373,8 +408,9 @@ export function WarungCarousel({
                           onNavigateToWarung(w.id);
                         }}
                         className="inline-flex items-center gap-1 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground transition-transform hover:bg-primary/90 active:scale-95"
+                        title="Buka profil & menu warung ini"
                       >
-                        <span>Lihat menu</span>
+                        <span>Lihat profil</span>
                         <ArrowRight className="h-3 w-3" />
                       </button>
                     </div>

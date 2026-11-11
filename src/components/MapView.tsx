@@ -15,6 +15,10 @@ interface MapViewProps {
   selectedId: string | null;
   onSelect: (id: string | null) => void;
   onMoveEnd?: (center: { lat: number; lng: number }, zoom: number) => void;
+  /** Dipanggil saat pengguna mulai menggeser atau memperbesar peta secara manual. */
+  onDragStart?: () => void;
+  /** Dipanggil saat pengguna mengklik/mengetuk area kosong pada peta. */
+  onMapClick?: () => void;
   recenterKey?: number;
   zoomDelta: { n: number; d: number };
   /** Pindahkan peta ke titik ini setiap kali objeknya berganti (mis. setelah memilih tempat). */
@@ -105,6 +109,8 @@ export default function MapView({
   selectedId,
   onSelect,
   onMoveEnd,
+  onDragStart,
+  onMapClick,
   recenterKey,
   zoomDelta,
   focus,
@@ -121,6 +127,7 @@ export default function MapView({
   const userMarkers = useRef<Leaflet.LayerGroup | null>(null);
   const programmaticUntil = useRef(0);
   const lastPanIdRef = useRef<string | null>(null);
+  const resizeObserver = useRef<ResizeObserver | null>(null);
   const [ready, setReady] = useState(false);
   const [pinsVersion, setPinsVersion] = useState(0);
 
@@ -130,6 +137,10 @@ export default function MapView({
   onSelectRef.current = onSelect;
   const onMoveEndRef = useRef(onMoveEnd);
   onMoveEndRef.current = onMoveEnd;
+  const onDragStartRef = useRef(onDragStart);
+  onDragStartRef.current = onDragStart;
+  const onMapClickRef = useRef(onMapClick);
+  onMapClickRef.current = onMapClick;
 
   // Buat peta (hanya di browser, Leaflet butuh `window`)
   useEffect(() => {
@@ -161,9 +172,10 @@ export default function MapView({
       }).addTo(created);
       L.control.attribution({ prefix: false, position: "bottomright" }).addTo(created);
 
-      // Deselect saat klik area kosong peta
+      // Deselect & notifikasi saat klik area kosong peta
       created.on("click", () => {
         onSelectRef.current(null);
+        onMapClickRef.current?.();
       });
 
       // Deteksi aksi langsung pengguna (drag/touch/mouse):
@@ -171,7 +183,15 @@ export default function MapView({
       const onUserGesture = () => {
         programmaticUntil.current = 0;
       };
-      created.on("dragstart", onUserGesture);
+      created.on("dragstart", () => {
+        onUserGesture();
+        onDragStartRef.current?.();
+      });
+      created.on("zoomstart", () => {
+        if (Date.now() >= programmaticUntil.current) {
+          onDragStartRef.current?.();
+        }
+      });
       created.on("touchstart", onUserGesture);
       created.on("mousedown", onUserGesture);
 
@@ -188,10 +208,22 @@ export default function MapView({
       pins.current = L.layerGroup().addTo(created);
       userMarkers.current = L.layerGroup().addTo(created);
       map.current = created;
+
+      // Pantau perubahan ukuran kontainer peta (misal saat sidebar desktop terbuka/tertutup)
+      if (typeof ResizeObserver !== "undefined" && el.current) {
+        const ro = new ResizeObserver(() => {
+          created?.invalidateSize();
+        });
+        ro.observe(el.current);
+        resizeObserver.current = ro;
+      }
+
       setReady(true);
     });
     return () => {
       cancelled = true;
+      resizeObserver.current?.disconnect();
+      resizeObserver.current = null;
       created?.remove();
       map.current = null;
       pins.current = null;

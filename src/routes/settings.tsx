@@ -126,7 +126,13 @@ function SettingsPage() {
           aria-label="Ke Profil"
           className="grid h-10 w-10 place-items-center rounded-full bg-card shadow-sm transition hover:bg-card/80 active:scale-95"
         >
-          <User className="h-5 w-5 text-muted-foreground" />
+          {s.user ? (
+            <span className="grid h-7 w-7 place-items-center rounded-full bg-primary font-display text-xs font-bold text-primary-foreground">
+              {s.user.name.charAt(0).toUpperCase()}
+            </span>
+          ) : (
+            <User className="h-5 w-5 text-muted-foreground" />
+          )}
         </Link>
       </div>
 

@@ -12,6 +12,7 @@ import {
   Coffee,
   CreditCard,
   Dices,
+  Eye,
   Flame,
   Heart,
   History,
@@ -205,6 +206,7 @@ function Home() {
   const moveDebounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [nearby, setNearby] = useState<Remote<Warung>>({ status: "idle", items: [] });
   const [retry, setRetry] = useState(0);
+  const [isTransparent, setIsTransparent] = useState(false);
   const [now] = useState(() => new Date());
   const places = useGeocode(q, geo.loc);
 
@@ -401,7 +403,10 @@ function Home() {
 
   const onSelect = useCallback((id: string | null) => {
     setSelected(id);
-    if (id) setMobileView("carousel");
+    if (id) {
+      setMobileView("carousel");
+      setIsTransparent(false);
+    }
   }, []);
 
   const pickPlace = useCallback((p: GeoPlace) => {
@@ -414,6 +419,7 @@ function Home() {
     setScanCoord(pt);
     setFocus({ lat: p.lat, lng: p.lng, zoom: AREA_ZOOM, animate: true });
     setSelected(null);
+    setIsTransparent(false);
     setQ("");
     setSearchOpen(false);
     setMobileView("carousel");
@@ -423,6 +429,7 @@ function Home() {
   const pickWarung = useCallback(
     (id: string) => {
       onSelect(id);
+      setIsTransparent(false);
       setQ("");
       setSearchOpen(false);
       (document.activeElement as HTMLElement | null)?.blur();
@@ -436,6 +443,7 @@ function Home() {
     saveArea(null);
     setMapCenter(null);
     setSelected(null);
+    setIsTransparent(false);
 
     // Jika izin lokasi dimatikan, kembali ke titik default (Manggarai)
     if (!locationEnabled) {
@@ -521,9 +529,15 @@ function Home() {
     setFilters((fs) => (fs.includes(f) ? fs.filter((x) => x !== f) : [...fs, f]));
 
   return (
-    <main className="relative h-dvh w-full overflow-hidden bg-background lg:grid lg:grid-cols-[400px_minmax(0,1fr)]">
+    <main className="relative h-dvh w-full overflow-hidden bg-background lg:flex">
       {/* Desktop sidebar */}
-      <aside className="hidden h-dvh flex-col border-r border-white/10 bg-background lg:flex">
+      <aside
+        className={`hidden h-dvh w-[400px] shrink-0 flex-col border-r border-white/10 bg-background transition-all duration-300 ease-in-out lg:flex ${
+          isTransparent
+            ? "lg:-ml-[400px] lg:opacity-0 lg:pointer-events-none"
+            : "lg:ml-0 lg:opacity-100"
+        }`}
+      >
         <div className="border-b border-white/5 p-4">
           <div className="mb-3 flex items-center justify-between">
             <div className="flex items-center gap-2.5">
@@ -540,16 +554,15 @@ function Home() {
             <Link
               to={s.user?.ownerOf ? "/pemilik" : "/profil"}
               aria-label="Profil"
-              className="flex items-center gap-2 rounded-full border border-white/10 bg-card px-3 py-1.5 text-xs font-semibold text-foreground transition-all hover:bg-muted active:scale-95"
+              className="grid h-8 w-8 place-items-center rounded-full border border-white/10 bg-card text-foreground transition-all hover:bg-muted active:scale-95"
             >
               {s.user ? (
-                <span className="grid h-5 w-5 place-items-center rounded-full bg-primary font-display text-[10px] font-bold text-primary-foreground">
+                <span className="grid h-6 w-6 place-items-center rounded-full bg-primary font-display text-xs font-bold text-primary-foreground">
                   {s.user.name.charAt(0).toUpperCase()}
                 </span>
               ) : (
-                <User className="h-3.5 w-3.5 text-muted-foreground" />
+                <User className="h-4 w-4 text-muted-foreground" />
               )}
-              <span>Profil</span>
             </Link>
           </div>
           <TopBar q={q} setQ={setQ} search={search} />
@@ -593,7 +606,7 @@ function Home() {
         </div>
       </aside>
 
-      <section className="absolute inset-0 lg:relative">
+      <section className="absolute inset-0 lg:relative lg:flex-1 lg:min-w-0 lg:h-full">
         <ClientOnly fallback={<div className="map-fallback absolute inset-0" />}>
           <Suspense fallback={<div className="map-fallback absolute inset-0" />}>
             <MapView
@@ -603,6 +616,11 @@ function Home() {
               selectedId={selected}
               onSelect={onSelect}
               onMoveEnd={handleMapMoveEnd}
+              onDragStart={() => setIsTransparent(true)}
+              onMapClick={() => {
+                setIsTransparent(false);
+                setSelected(null);
+              }}
               zoomDelta={zoom}
               focus={focus}
               pinStyle={pinStyle}
@@ -612,10 +630,33 @@ function Home() {
           </Suspense>
         </ClientOnly>
 
+        {/* Indikator Floating Mode Transparan */}
+        {isTransparent && (
+          <div className="pointer-events-auto absolute top-4 inset-x-0 z-30 flex justify-center px-4 animate-in fade-in slide-in-from-top-3 duration-300">
+            <button
+              type="button"
+              onClick={() => setIsTransparent(false)}
+              className="flex items-center gap-2 rounded-full border border-amber-500/30 bg-[#202020]/90 px-3.5 py-1.5 text-xs font-semibold text-foreground shadow-float backdrop-blur-md transition-all hover:bg-[#282828] active:scale-95"
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-amber-500" />
+              </span>
+              <span className="text-amber-300 font-medium">Mode Transparan</span>
+              <span className="text-white/30">·</span>
+              <span className="text-muted-foreground text-[11px]">Ketuk peta untuk keluar</span>
+            </button>
+          </div>
+        )}
+
         {/* Mobile top overlay: Integrated Radar Header */}
         <header
-          className={`pointer-events-auto absolute inset-x-0 top-0 border-b border-white/10 bg-[#202020]/90 px-3 pt-safe pb-2.5 backdrop-blur-md shadow-float lg:hidden ${
+          className={`pointer-events-auto absolute inset-x-0 top-0 border-b border-white/10 bg-[#202020]/90 px-3 pt-safe pb-2.5 backdrop-blur-md shadow-float transition-all duration-300 ease-in-out lg:hidden ${
             searchOpen ? "z-40" : "z-20"
+          } ${
+            isTransparent
+              ? "-translate-y-full opacity-0 pointer-events-none"
+              : "translate-y-0 opacity-100"
           }`}
         >
           {/* Brand & Location status row */}
@@ -681,16 +722,15 @@ function Home() {
               <Link
                 to={s.user?.ownerOf ? "/pemilik" : "/profil"}
                 aria-label="Profil"
-                className="flex h-7 items-center gap-1.5 rounded-full border border-white/10 bg-white/10 px-2.5 text-xs font-semibold text-foreground transition-all hover:bg-white/20 active:scale-95"
+                className="grid h-7 w-7 place-items-center rounded-full border border-white/10 bg-white/10 text-foreground transition-all hover:bg-white/20 active:scale-95"
               >
                 {s.user ? (
-                  <span className="grid h-4 w-4 place-items-center rounded-full bg-primary font-display text-[9px] font-bold text-primary-foreground">
+                  <span className="grid h-5 w-5 place-items-center rounded-full bg-primary font-display text-[10px] font-bold text-primary-foreground">
                     {s.user.name.charAt(0).toUpperCase()}
                   </span>
                 ) : (
                   <User className="h-3.5 w-3.5 text-muted-foreground" />
                 )}
-                <span>Profil</span>
               </Link>
             </div>
           </div>
@@ -711,8 +751,17 @@ function Home() {
           />
         </header>
 
-        {/* Desktop Map Controls (Gaya Penanda, Perbesar, Perkecil, Lokasi Saya) */}
+        {/* Desktop Map Controls (Mode Transparan, Gaya Penanda, Perbesar, Perkecil, Lokasi Saya) */}
         <div className="hidden lg:absolute lg:bottom-6 lg:right-6 lg:z-20 lg:flex lg:flex-col lg:items-center lg:gap-2">
+          <button
+            type="button"
+            aria-label="Mode peta transparan / layar penuh"
+            onClick={() => setIsTransparent((t) => !t)}
+            className="grid h-12 w-12 place-items-center rounded-2xl border border-white/10 bg-card/90 text-foreground shadow-float backdrop-blur-sm transition-all hover:bg-white/10 active:scale-95"
+            title="Mode transparan: Sembunyikan sidebar untuk melihat peta penuh"
+          >
+            <Eye className="h-5 w-5 text-amber-400" />
+          </button>
           <button
             type="button"
             aria-label={
@@ -763,7 +812,13 @@ function Home() {
 
         {/* Selected warung card (desktop only) */}
         {sel && (
-          <div className="hidden lg:block lg:absolute lg:bottom-6 lg:left-6 lg:z-30 lg:w-[360px]">
+          <div
+            className={`hidden lg:block lg:absolute lg:bottom-6 lg:left-6 lg:z-30 lg:w-[360px] transition-all duration-300 ${
+              isTransparent
+                ? "translate-y-4 opacity-0 pointer-events-none"
+                : "translate-y-0 opacity-100"
+            }`}
+          >
             <div className="rounded-3xl border border-white/10 bg-card/95 p-3.5 shadow-float backdrop-blur-sm">
               <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3">
                 <img
@@ -822,7 +877,7 @@ function Home() {
                 onClick={() => navigate({ to: "/warung/$id", params: { id: sel.w.id } })}
                 className="mt-3 flex h-10 w-full items-center justify-center gap-1.5 rounded-full bg-primary text-xs font-semibold text-primary-foreground transition-transform hover:bg-primary/90 active:scale-95"
               >
-                <span>Lihat menu & harga</span>
+                <span>Lihat profil & menu</span>
                 <ArrowRight className="h-3.5 w-3.5" />
               </button>
             </div>
@@ -847,6 +902,8 @@ function Home() {
           filters={filters}
           now={now}
           onNavigateToWarung={(id) => navigate({ to: "/warung/$id", params: { id } })}
+          isTransparent={isTransparent}
+          onToggleTransparent={() => setIsTransparent((t) => !t)}
         />
 
         {gachaOpen && (
@@ -885,7 +942,7 @@ function Home() {
           />
         )}
       </section>
-      <BottomNav />
+      <BottomNav hidden={isTransparent} />
     </main>
   );
 }
