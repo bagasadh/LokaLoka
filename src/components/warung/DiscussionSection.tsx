@@ -25,7 +25,7 @@ export function DiscussionSection({
 
   const isOwner = Boolean(s.user?.ownerOf && s.user.ownerOf === warungId);
 
-  const quickPrompts = [
+  const quickSuggestions = [
     "Patokan lokasi persisnya sebelah mana ya kak?",
     "Parkir mobil atau motor aman dan luas ga ya?",
     "Menu yang paling enak dan recommended apa di sini?",
@@ -89,16 +89,16 @@ export function DiscussionSection({
           Tanya patokan gang, rekomendasi menu, fasilitas, atau parkir
         </p>
 
-        {/* Quick Prompt Chips */}
+        {/* Contoh Pertanyaan */}
         <div className="mt-3 flex flex-wrap gap-1.5">
-          {quickPrompts.map((prompt) => (
+          {quickSuggestions.map((suggestion) => (
             <button
-              key={prompt}
+              key={suggestion}
               type="button"
-              onClick={() => setQuestionText(prompt)}
+              onClick={() => setQuestionText(suggestion)}
               className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] text-muted-foreground transition hover:border-amber-500/40 hover:bg-amber-500/10 hover:text-foreground active:scale-95 text-left"
             >
-              <span>{prompt}</span>
+              <span>{suggestion}</span>
             </button>
           ))}
         </div>

@@ -43,3 +43,4 @@ package-lock.json
 # Local AI / Agent tooling
 .agents/
 graphify-out/
+AGENTS.md
