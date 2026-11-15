@@ -32,9 +32,7 @@ export function BottomNav({ hidden }: { hidden?: boolean } = {}) {
         style={{ height: `${DOCK_HEIGHT_REM}rem` }}
       >
         <Link to="/" className={item(isMapActive)} aria-current={isMapActive ? "page" : undefined}>
-          {isMapActive && (
-            <span className="absolute top-0 h-0.5 w-8 rounded-full bg-foreground" />
-          )}
+          {isMapActive && <span className="absolute top-0 h-0.5 w-8 rounded-full bg-foreground" />}
           <MapIcon className="h-[18px] w-[18px]" strokeWidth={isMapActive ? 2.25 : 1.75} />
           <span>Peta</span>
         </Link>
