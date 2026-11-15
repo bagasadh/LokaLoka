@@ -44,3 +44,4 @@ package-lock.json
 .agents/
 graphify-out/
 AGENTS.md
+!.env.example
