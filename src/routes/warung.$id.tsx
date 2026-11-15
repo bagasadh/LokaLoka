@@ -193,12 +193,12 @@ function WarungPage() {
               <span>{hoursLabel(w)}</span>
             </div>
             {timing.isClosingSoon && (
-              <span className="inline-flex items-center gap-1 rounded-full border border-amber-500/30 bg-amber-500/15 px-2 py-0.5 text-[11px] font-semibold text-amber-300">
+              <span className="inline-flex items-center gap-1 rounded-full border border-amber-500/30 bg-amber-500/15 px-2 py-0.5 text-xs font-semibold text-amber-300">
                 <span>⏳ Tutup {timing.minutesLeft} mnt lagi!</span>
               </span>
             )}
             {timing.isLateNight && (
-              <span className="inline-flex items-center gap-1 rounded-full border border-indigo-500/30 bg-indigo-500/15 px-2 py-0.5 text-[11px] font-semibold text-indigo-300">
+              <span className="inline-flex items-center gap-1 rounded-full border border-indigo-500/30 bg-indigo-500/15 px-2 py-0.5 text-xs font-semibold text-indigo-300">
                 <Moon className="h-3 w-3" />
                 <span>Kuliner Malam</span>
               </span>
@@ -210,11 +210,11 @@ function WarungPage() {
               {w.hasQris ? "Menerima QRIS & Tunai" : "Hanya Menerima Uang Tunai"}
             </span>
             {w.hasQris ? (
-              <span className="rounded-full border border-cyan-500/30 bg-cyan-500/10 px-1.5 py-0.2 text-[10px] font-bold text-cyan-300">
+              <span className="rounded-full border border-cyan-500/30 bg-cyan-500/10 px-1.5 py-0.2 text-xs font-bold text-cyan-300">
                 QRIS AKTIF
               </span>
             ) : (
-              <span className="rounded-full border border-white/10 bg-white/5 px-1.5 py-0.2 text-[10px] font-medium text-muted-foreground">
+              <span className="rounded-full border border-white/10 bg-white/5 px-1.5 py-0.2 text-xs font-medium text-muted-foreground">
                 CASH ONLY
               </span>
             )}
@@ -284,7 +284,7 @@ function WarungPage() {
                 <AlertTriangle className="h-4 w-4 shrink-0 text-rose-400" />
                 <span>Peringatan: Ada {getokReports.length} Laporan Getok Harga</span>
               </div>
-              <span className="rounded-full border border-rose-500/30 bg-rose-500/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-rose-300">
+              <span className="rounded-full border border-rose-500/30 bg-rose-500/20 px-2 py-0.5 text-xs font-bold uppercase tracking-wider text-rose-300">
                 Waspada
               </span>
             </div>
@@ -305,7 +305,7 @@ function WarungPage() {
                     </span>
                   </div>
                   {r.note && <p className="mt-1 italic text-muted-foreground">"{r.note}"</p>}
-                  <p className="mt-1 text-[10px] text-muted-foreground/70">
+                  <p className="mt-1 text-xs text-muted-foreground/70">
                     Laporan warga: {r.reporter} ·{" "}
                     {formatAgo(Math.round((Date.now() - r.createdAt) / 60000))}
                   </p>
@@ -350,7 +350,7 @@ function WarungPage() {
                   Transparansi Harga Kaki Lima
                 </p>
               </div>
-              <p className="text-[11px] text-muted-foreground truncate">
+              <p className="text-xs text-muted-foreground truncate">
                 Harga beda dengan di tempat? Bantu warga dengan lapor update
               </p>
             </div>
@@ -419,7 +419,7 @@ function WarungPage() {
                           {formatRupiah(m.price)}
                         </span>
                         <span
-                          className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] font-semibold tracking-wide ${analysis.badgeBg} ${analysis.badgeText}`}
+                          className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-semibold tracking-wide ${analysis.badgeBg} ${analysis.badgeText}`}
                         >
                           {analysis.tier === "cheap" && "📉 "}
                           {analysis.tier === "fair" && "✓ "}
@@ -430,11 +430,11 @@ function WarungPage() {
                       </div>
                       <div className="mt-1 flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1">
                         <SourceBadge source={m.source} />
-                        <span className="text-[11px] text-muted-foreground">
+                        <span className="text-xs text-muted-foreground">
                           diperbarui {formatAgo(m.updatedMinAgo)}
                         </span>
                         {analysis.benchmark && (
-                          <span className="text-[11px] text-muted-foreground/80">
+                          <span className="text-xs text-muted-foreground/80">
                             · Pasaran: {formatRupiah(analysis.referenceAvg)}
                           </span>
                         )}
@@ -487,13 +487,13 @@ function WarungPage() {
                   <button
                     type="button"
                     onClick={() => setSelectedReceipt(r.receipt)}
-                    className="mt-2 inline-flex items-center gap-1 rounded-full bg-sky-400/10 px-2 py-0.5 text-[11px] font-medium text-sky-300 transition-colors hover:bg-sky-400/20 active:scale-95"
+                    className="mt-2 inline-flex items-center gap-1 rounded-full bg-sky-400/10 px-2 py-0.5 text-xs font-medium text-sky-300 transition-colors hover:bg-sky-400/20 active:scale-95"
                   >
                     <Receipt className="h-3 w-3" />
                     <span>Pembelian terverifikasi struk · Lihat</span>
                   </button>
                 ) : (
-                  <p className="mt-2 inline-flex items-center gap-1 rounded-full bg-success/15 px-2 py-0.5 text-[11px] font-medium text-success">
+                  <p className="mt-2 inline-flex items-center gap-1 rounded-full bg-success/15 px-2 py-0.5 text-xs font-medium text-success">
                     <Receipt className="h-3 w-3" />
                     Pembelian terverifikasi
                   </p>
@@ -528,7 +528,7 @@ function WarungPage() {
                 el?.scrollIntoView({ behavior: "smooth", block: "center" });
                 el?.focus();
               }}
-              className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-primary text-sm font-semibold text-primary-foreground shadow-md transition-all hover:bg-primary/90 active:scale-95"
+              className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-primary text-sm font-semibold text-primary-foreground shadow-md transition-colors hover:bg-primary/90 active:scale-95"
             >
               <MessageSquare className="h-4 w-4" />
               <span>Tulis Pertanyaan Baru</span>
@@ -540,7 +540,7 @@ function WarungPage() {
                   ? setWriting(true)
                   : router.navigate({ to: "/masuk", search: { next: `/warung/${id}` } })
               }
-              className="h-12 w-full rounded-full bg-primary text-sm font-semibold text-primary-foreground shadow-md transition-all hover:bg-primary/90 active:scale-95"
+              className="h-12 w-full rounded-full bg-primary text-sm font-semibold text-primary-foreground shadow-md transition-colors hover:bg-primary/90 active:scale-95"
             >
               {s.user ? "Sudah beli? Tulis ulasan" : "Masuk untuk menulis ulasan"}
             </button>

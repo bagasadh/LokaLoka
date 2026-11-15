@@ -96,7 +96,7 @@ export function DiscussionSection({
               key={suggestion}
               type="button"
               onClick={() => setQuestionText(suggestion)}
-              className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] text-muted-foreground transition hover:border-amber-500/40 hover:bg-amber-500/10 hover:text-foreground active:scale-95 text-left"
+              className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-xs text-muted-foreground transition hover:border-amber-500/40 hover:bg-amber-500/10 hover:text-foreground active:scale-95 text-left"
             >
               <span>{suggestion}</span>
             </button>
@@ -124,7 +124,7 @@ export function DiscussionSection({
               />
             ) : (
               <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                <span className="grid h-6 w-6 place-items-center rounded-full bg-primary/20 text-[10px] font-bold text-primary">
+                <span className="grid h-6 w-6 place-items-center rounded-full bg-primary/20 text-xs font-bold text-primary">
                   {s.user.name.charAt(0)}
                 </span>
                 <span>
@@ -180,12 +180,12 @@ export function DiscussionSection({
                         <div className="flex items-center gap-1.5">
                           <p className="text-sm font-semibold text-foreground">{c.author}</p>
                           {c.isOwner && (
-                            <span className="rounded-full border border-amber-500/40 bg-amber-500/10 px-1.5 py-0.2 text-[9px] font-semibold text-amber-300">
+                            <span className="rounded-full border border-amber-500/40 bg-amber-500/10 px-1.5 py-0.2 text-xs font-semibold text-amber-300">
                               👑 Pemilik
                             </span>
                           )}
                         </div>
-                        <p className="text-[11px] text-muted-foreground">{formatAgo(minAgo)}</p>
+                        <p className="text-xs text-muted-foreground">{formatAgo(minAgo)}</p>
                       </div>
                     </div>
                   </div>
@@ -225,11 +225,11 @@ export function DiscussionSection({
                             <div className="flex items-center gap-1.5">
                               <span className="font-semibold text-foreground">{rep.author}</span>
                               {rep.isOwner ? (
-                                <span className="inline-flex items-center gap-0.5 rounded-full border border-amber-500/40 bg-amber-500/10 px-1.5 py-0.2 text-[9px] font-bold text-amber-300">
+                                <span className="inline-flex items-center gap-0.5 rounded-full border border-amber-500/40 bg-amber-500/10 px-1.5 py-0.2 text-xs font-bold text-amber-300">
                                   👑 Pemilik Warung
                                 </span>
                               ) : (
-                                <span className="rounded-full bg-white/5 px-1.5 py-0.2 text-[9px] text-muted-foreground">
+                                <span className="rounded-full bg-white/5 px-1.5 py-0.2 text-xs text-muted-foreground">
                                   Warga / Pengunjung
                                 </span>
                               )}
@@ -268,7 +268,7 @@ export function DiscussionSection({
                               setReplyAuthor((prev) => ({ ...prev, [c.id]: e.target.value }))
                             }
                             placeholder="Nama kamu (opsional)"
-                            className="h-8 rounded-lg border border-white/10 bg-background px-2.5 text-[11px] outline-none"
+                            className="h-8 rounded-lg border border-white/10 bg-background px-2.5 text-xs outline-none"
                           />
                         )}
                         <button

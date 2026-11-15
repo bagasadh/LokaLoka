@@ -124,51 +124,51 @@ export function WarungList({
                   </div>
 
                   <div className="mt-1.5 flex flex-wrap items-center gap-1 text-xs">
-                    <span className={`text-[11px] font-medium ${OPEN_LABEL[state].cls}`}>
+                    <span className={`text-xs font-medium ${OPEN_LABEL[state].cls}`}>
                       {state === "unknown" ? "Jam buka belum tercatat" : OPEN_LABEL[state].text}
                     </span>
                     {timing.isClosingSoon && (
-                      <span className="inline-flex items-center rounded-md bg-amber-500/15 px-1.5 py-0.5 text-[10px] font-medium text-amber-300">
+                      <span className="inline-flex items-center rounded-md bg-amber-500/15 px-1.5 py-0.5 text-xs font-medium text-amber-300">
                         <span>Tutup {timing.minutesLeft} mnt lagi</span>
                       </span>
                     )}
                     {priceRadar.tier === "cheap" && (
-                      <span className="inline-flex items-center gap-1 rounded-md bg-emerald-500/15 px-1.5 py-0.5 text-[10px] font-medium text-emerald-300">
+                      <span className="inline-flex items-center gap-1 rounded-md bg-emerald-500/15 px-1.5 py-0.5 text-xs font-medium text-emerald-300">
                         <ShieldCheck className="h-2.5 w-2.5" />
                         <span>Ramah Kantong</span>
                       </span>
                     )}
                     {priceRadar.tier === "fair" && (
-                      <span className="inline-flex items-center gap-1 rounded-md bg-emerald-500/12 px-1.5 py-0.5 text-[10px] font-medium text-emerald-300/90">
+                      <span className="inline-flex items-center gap-1 rounded-md bg-emerald-500/12 px-1.5 py-0.5 text-xs font-medium text-emerald-300/90">
                         <ShieldCheck className="h-2.5 w-2.5" />
                         <span>Harga Wajar</span>
                       </span>
                     )}
                     {priceRadar.tier === "overpriced" && (
-                      <span className="inline-flex items-center gap-1 rounded-md bg-rose-500/15 px-1.5 py-0.5 text-[10px] font-medium text-rose-300">
+                      <span className="inline-flex items-center gap-1 rounded-md bg-rose-500/15 px-1.5 py-0.5 text-xs font-medium text-rose-300">
                         <ShieldAlert className="h-2.5 w-2.5" />
                         <span>Waspada Getok</span>
                       </span>
                     )}
                     {w.hasQris && (
-                      <span className="inline-flex items-center gap-1 rounded-md bg-white/[0.07] px-1.5 py-0.5 text-[10px] font-medium text-foreground/85">
+                      <span className="inline-flex items-center gap-1 rounded-md bg-white/[0.07] px-1.5 py-0.5 text-xs font-medium text-foreground/85">
                         <CreditCard className="h-2.5 w-2.5 text-muted-foreground" />
                         <span>QRIS</span>
                       </span>
                     )}
                     {timing.isLateNight && (
-                      <span className="inline-flex items-center rounded-md bg-white/[0.07] px-1.5 py-0.5 text-[10px] font-medium text-foreground/85">
+                      <span className="inline-flex items-center rounded-md bg-white/[0.07] px-1.5 py-0.5 text-xs font-medium text-foreground/85">
                         <span>Buka Malam</span>
                       </span>
                     )}
                     {hasReceipt && (
-                      <span className="inline-flex items-center gap-1 rounded-md bg-white/[0.07] px-1.5 py-0.5 text-[10px] font-medium text-foreground/85">
+                      <span className="inline-flex items-center gap-1 rounded-md bg-white/[0.07] px-1.5 py-0.5 text-xs font-medium text-foreground/85">
                         <Receipt className="h-2.5 w-2.5 text-muted-foreground" />
                         <span>Ada Struk</span>
                       </span>
                     )}
                     {w.registered && (
-                      <span className="inline-flex items-center rounded-md bg-white/[0.07] px-1.5 py-0.5 text-[10px] font-medium text-foreground/85">
+                      <span className="inline-flex items-center rounded-md bg-white/[0.07] px-1.5 py-0.5 text-xs font-medium text-foreground/85">
                         <span>Terverifikasi</span>
                       </span>
                     )}

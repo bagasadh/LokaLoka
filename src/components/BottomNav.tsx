@@ -14,7 +14,7 @@ export function BottomNav({ hidden }: { hidden?: boolean } = {}) {
   const isSettingsActive = path === "/settings";
 
   const item = (active: boolean) =>
-    `relative flex h-full min-w-0 flex-1 flex-col items-center justify-center gap-1 text-[11px] transition-colors ${
+    `relative flex h-full min-w-0 flex-1 flex-col items-center justify-center gap-1 text-xs transition-colors ${
       active
         ? "font-semibold text-primary"
         : "font-medium text-muted-foreground hover:text-foreground"
@@ -23,7 +23,7 @@ export function BottomNav({ hidden }: { hidden?: boolean } = {}) {
   return (
     <nav
       aria-label="Navigasi utama"
-      className={`fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-background/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl transition-all duration-300 ease-in-out md:hidden ${
+      className={`fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-background/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl transition-[transform,opacity] duration-300 ease-out md:hidden ${
         hidden ? "translate-y-full opacity-0 pointer-events-none" : "translate-y-0 opacity-100"
       }`}
     >

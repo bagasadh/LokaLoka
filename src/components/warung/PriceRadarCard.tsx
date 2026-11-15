@@ -39,7 +39,7 @@ export function PriceRadarCard({
         : "bg-primary/15 text-primary border-primary/30";
 
   return (
-    <div className={`mt-4 rounded-3xl border p-4 shadow-sm transition-all ${cardStyle}`}>
+    <div className={`mt-4 rounded-3xl border p-4 shadow-sm transition-colors ${cardStyle}`}>
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
@@ -58,7 +58,7 @@ export function PriceRadarCard({
               {radar.title}
             </span>
             {radar.hasVerifiedReceipts && (
-              <span className="inline-flex items-center gap-1 rounded-full bg-sky-400/10 px-2 py-0.5 text-[11px] font-medium text-sky-300">
+              <span className="inline-flex items-center gap-1 rounded-full bg-sky-400/10 px-2 py-0.5 text-xs font-medium text-sky-300">
                 <Receipt className="h-3 w-3" />
                 Struk Terverifikasi
               </span>
@@ -98,7 +98,7 @@ export function PriceRadarCard({
       {isOverpriced && (
         <div className="mt-3 rounded-2xl bg-rose-500/10 p-2.5 text-xs text-rose-200">
           <p className="font-semibold">⚠️ Tips Hindari Getok Harga:</p>
-          <p className="mt-0.5 text-[11px] text-rose-200/90">
+          <p className="mt-0.5 text-xs text-rose-200/90">
             Tanyakan harga pasti sebelum memesan atau minta nota rincian untuk mencegah markup tak
             wajar.
           </p>
@@ -128,7 +128,7 @@ export function RadarInfoModal({ onClose }: { onClose: () => void }) {
             </span>
             <div>
               <h2 className="text-base font-bold">Radar Anti-Getok Harga</h2>
-              <p className="text-[11px] text-muted-foreground">
+              <p className="text-xs text-muted-foreground">
                 Perlindungan pembeli & keterbukaan harga
               </p>
             </div>
@@ -177,7 +177,7 @@ export function RadarInfoModal({ onClose }: { onClose: () => void }) {
                   <p className="font-semibold text-xs text-foreground">
                     Sangat Ramah Kantong (&le; -15%)
                   </p>
-                  <p className="text-[11px] text-muted-foreground">
+                  <p className="text-xs text-muted-foreground">
                     Harga lebih hemat dari pasaran umum, sangat ramah budget pelajar/harian.
                   </p>
                 </div>
@@ -188,7 +188,7 @@ export function RadarInfoModal({ onClose }: { onClose: () => void }) {
                   <p className="font-semibold text-xs text-foreground">
                     Harga Wajar Pasaran (-15% s/d +15%)
                   </p>
-                  <p className="text-[11px] text-muted-foreground">
+                  <p className="text-xs text-muted-foreground">
                     Sesuai dengan standar harga pedagang makanan di kawasan setempat.
                   </p>
                 </div>
@@ -199,7 +199,7 @@ export function RadarInfoModal({ onClose }: { onClose: () => void }) {
                   <p className="font-semibold text-xs text-foreground">
                     Sedikit di Atas Rata-rata (+16% s/d +39%)
                   </p>
-                  <p className="text-[11px] text-muted-foreground">
+                  <p className="text-xs text-muted-foreground">
                     Sedikit lebih mahal (umumnya karena porsi lebih besar atau fasilitas tempat
                     dine-in).
                   </p>
@@ -211,7 +211,7 @@ export function RadarInfoModal({ onClose }: { onClose: () => void }) {
                   <p className="font-semibold text-xs text-foreground">
                     Waspada Potensi Getok (&ge; +40%)
                   </p>
-                  <p className="text-[11px] text-muted-foreground">
+                  <p className="text-xs text-muted-foreground">
                     Harga terpantau jauh melampaui harga rata-rata sekitar. Pastikan konfirmasi
                     harga sebelum pesan.
                   </p>
@@ -222,7 +222,7 @@ export function RadarInfoModal({ onClose }: { onClose: () => void }) {
 
           <div className="rounded-2xl border border-sky-400/20 bg-sky-400/10 p-3 text-sky-200">
             <p className="font-semibold">💡 Ikut Berkontribusi:</p>
-            <p className="mt-0.5 text-[11px] text-sky-200/90">
+            <p className="mt-0.5 text-xs text-sky-200/90">
               Kamu bisa membantu sesama dengan mengunggah foto struk saat memberikan ulasan di
               Lokaloka!
             </p>

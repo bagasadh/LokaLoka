@@ -505,7 +505,7 @@ function Home() {
     <main className="relative h-dvh w-full overflow-hidden bg-background md:flex">
       {/* Desktop & split-screen sidebar */}
       <aside
-        className={`hidden h-dvh w-[350px] shrink-0 flex-col border-r border-white/10 bg-background transition-all duration-300 ease-in-out md:flex lg:w-[400px] ${
+        className={`hidden h-dvh w-[350px] shrink-0 flex-col border-r border-white/10 bg-background transition-opacity duration-200 ease-out md:flex lg:w-[400px] ${
           isTransparent
             ? "md:-ml-[350px] lg:-ml-[400px] md:opacity-0 md:pointer-events-none"
             : "md:ml-0 md:opacity-100"
@@ -524,14 +524,14 @@ function Home() {
                 to="/settings"
                 aria-label="Pengaturan"
                 title="Pengaturan & Tema Peta"
-                className="grid h-8 w-8 place-items-center rounded-lg border border-white/10 bg-card text-foreground transition-all hover:bg-muted active:scale-95"
+                className="grid h-8 w-8 place-items-center rounded-lg border border-white/10 bg-card text-foreground transition-colors hover:bg-muted active:scale-95"
               >
                 <Settings className="h-4 w-4 text-muted-foreground" />
               </Link>
               <Link
                 to={s.user?.ownerOf ? "/pemilik" : "/profil"}
                 aria-label="Profil"
-                className="grid h-8 w-8 place-items-center rounded-lg border border-white/10 bg-card text-foreground transition-all hover:bg-muted active:scale-95"
+                className="grid h-8 w-8 place-items-center rounded-lg border border-white/10 bg-card text-foreground transition-colors hover:bg-muted active:scale-95"
               >
                 {s.user ? (
                   <span className="grid h-6 w-6 place-items-center rounded-md bg-primary font-display text-xs font-bold text-primary-foreground">
@@ -606,22 +606,21 @@ function Home() {
             <button
               type="button"
               onClick={() => setIsTransparent(false)}
-              className="flex items-center gap-2 rounded-full border border-amber-500/30 bg-background/90 px-3.5 py-1.5 text-xs font-semibold text-foreground shadow-float backdrop-blur-md transition-all hover:bg-card active:scale-95"
+              className="flex items-center gap-2 rounded-full border border-amber-500/30 bg-background/90 px-3.5 py-1.5 text-xs font-semibold text-foreground shadow-float backdrop-blur-md transition-colors hover:bg-card active:scale-95"
             >
               <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-amber-500" />
               </span>
               <span className="text-amber-300 font-medium">Mode Transparan</span>
               <span className="text-white/30">·</span>
-              <span className="text-muted-foreground text-[11px]">Ketuk peta untuk keluar</span>
+              <span className="text-muted-foreground text-xs">Ketuk peta untuk keluar</span>
             </button>
           </div>
         )}
 
         {/* Mobile top overlay: Floating Glass Header */}
         <header
-          className={`pointer-events-auto absolute inset-x-2.5 top-2.5 rounded-2xl border border-white/12 bg-background/90 px-3 py-2.5 backdrop-blur-xl shadow-float transition-all duration-300 ease-in-out md:hidden ${
+          className={`pointer-events-auto absolute inset-x-2.5 top-2.5 rounded-2xl border border-white/12 bg-background/90 px-3 py-2.5 backdrop-blur-xl shadow-float transition-[transform,opacity] duration-300 md:hidden ${
             searchOpen ? "z-40" : "z-20"
           } ${
             isTransparent
@@ -646,12 +645,12 @@ function Home() {
                   className="flex h-7 items-center gap-1 rounded-md border border-white/10 bg-white/5 px-2 text-xs text-muted-foreground transition-colors hover:text-foreground"
                 >
                   <LocateFixed className="h-3 w-3 text-muted-foreground" />
-                  <span className="text-[11px]">GPS Mati</span>
+                  <span className="text-xs">GPS Mati</span>
                 </Link>
               ) : nearby.status === "loading" ? (
                 <div className="flex h-7 items-center gap-1.5 rounded-md border border-white/10 bg-white/5 px-2 text-xs text-muted-foreground">
                   <Loader2 className="h-3 w-3 animate-spin text-foreground" />
-                  <span className="text-[11px] font-medium">Memindai…</span>
+                  <span className="text-xs font-medium">Memindai…</span>
                 </div>
               ) : isPannedAway ? (
                 <button
@@ -676,7 +675,7 @@ function Home() {
               ) : (
                 <div className="flex h-7 items-center gap-1.5 rounded-md px-2 text-xs text-muted-foreground">
                   <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400" />
-                  <span className="text-[11px] font-medium">Sekitar</span>
+                  <span className="text-xs font-medium">Sekitar</span>
                 </div>
               )}
 
@@ -684,10 +683,10 @@ function Home() {
               <Link
                 to={s.user?.ownerOf ? "/pemilik" : "/profil"}
                 aria-label="Profil"
-                className="grid h-7 w-7 place-items-center rounded-lg border border-white/10 bg-white/[0.06] text-foreground transition-all hover:bg-white/12 active:scale-95"
+                className="grid h-7 w-7 place-items-center rounded-lg border border-white/10 bg-white/[0.06] text-foreground transition-colors hover:bg-white/12 active:scale-95"
               >
                 {s.user ? (
-                  <span className="grid h-5 w-5 place-items-center rounded bg-primary font-display text-[10px] font-bold text-primary-foreground">
+                  <span className="grid h-5 w-5 place-items-center rounded bg-primary font-display text-xs font-bold text-primary-foreground">
                     {s.user.name.charAt(0).toUpperCase()}
                   </span>
                 ) : (
@@ -719,7 +718,7 @@ function Home() {
             type="button"
             aria-label="Mode peta transparan / layar penuh"
             onClick={() => setIsTransparent((t) => !t)}
-            className="grid h-12 w-12 place-items-center rounded-2xl border border-white/10 bg-card/90 text-foreground shadow-float backdrop-blur-sm transition-all hover:bg-white/10 active:scale-95"
+            className="grid h-12 w-12 place-items-center rounded-2xl border border-white/10 bg-card/90 text-foreground shadow-float backdrop-blur-sm transition-colors hover:bg-white/10 active:scale-95"
             title="Mode transparan: Sembunyikan sidebar untuk melihat peta penuh"
           >
             <Eye className="h-5 w-5 text-amber-400" />
@@ -730,7 +729,7 @@ function Home() {
               pinStyle === "badge" ? "Ganti ke mode pin ringkas" : "Ganti ke mode harga & menu"
             }
             onClick={togglePinStyle}
-            className="grid h-12 w-12 place-items-center rounded-2xl border border-white/10 bg-card/90 text-foreground shadow-float backdrop-blur-sm transition-all hover:bg-white/10 active:scale-95"
+            className="grid h-12 w-12 place-items-center rounded-2xl border border-white/10 bg-card/90 text-foreground shadow-float backdrop-blur-sm transition-colors hover:bg-white/10 active:scale-95"
             title={
               pinStyle === "badge"
                 ? "Mode penanda: Tampilkan pin ringkas"
@@ -775,7 +774,7 @@ function Home() {
         {/* Selected warung card (desktop only) */}
         {sel && (
           <div
-            className={`hidden md:block md:absolute md:bottom-6 md:left-6 md:z-30 md:w-[340px] lg:w-[360px] transition-all duration-300 ${
+            className={`hidden md:block md:absolute md:bottom-6 md:left-6 md:z-30 md:w-[340px] lg:w-[360px] transition-[transform,opacity] duration-300 ${
               isTransparent
                 ? "translate-y-4 opacity-0 pointer-events-none"
                 : "translate-y-0 opacity-100"

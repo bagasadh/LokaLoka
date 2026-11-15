@@ -298,7 +298,7 @@ export default function RouteModal({ from, warung, onClose }: RouteModalProps) {
           >
             <Bike className="h-4 w-4 shrink-0" />
             <span className="font-bold">Motor</span>
-            {motorMin && <span className="text-[11px] opacity-80">({motorMin} mnt)</span>}
+            {motorMin && <span className="text-xs opacity-80">({motorMin} mnt)</span>}
           </button>
           <button
             type="button"
@@ -311,7 +311,7 @@ export default function RouteModal({ from, warung, onClose }: RouteModalProps) {
           >
             <Footprints className="h-4 w-4 shrink-0" />
             <span className="font-bold">Jalan Kaki</span>
-            {jalanMin && <span className="text-[11px] opacity-80">({jalanMin} mnt)</span>}
+            {jalanMin && <span className="text-xs opacity-80">({jalanMin} mnt)</span>}
           </button>
           <button
             type="button"
@@ -324,7 +324,7 @@ export default function RouteModal({ from, warung, onClose }: RouteModalProps) {
           >
             <Car className="h-4 w-4 shrink-0" />
             <span className="font-bold">Mobil</span>
-            {mobilMin && <span className="text-[11px] opacity-80">({mobilMin} mnt)</span>}
+            {mobilMin && <span className="text-xs opacity-80">({mobilMin} mnt)</span>}
           </button>
         </div>
 

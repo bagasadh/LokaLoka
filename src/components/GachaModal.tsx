@@ -208,7 +208,7 @@ export default function GachaModal({
       onClick={onClose}
     >
       <div
-        className="relative flex w-full max-w-sm flex-col overflow-hidden rounded-3xl border border-white/10 bg-card p-4 shadow-float transition-all"
+        className="relative flex w-full max-w-sm flex-col overflow-hidden rounded-3xl border border-white/10 bg-card p-4 shadow-float transition-colors"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Confetti canvas */}
@@ -222,7 +222,7 @@ export default function GachaModal({
             </span>
             <div>
               <h2 className="font-display text-base font-bold text-foreground">Gacha Kuliner</h2>
-              <p className="text-[11px] text-muted-foreground">Biar takdir yang pilih makanmu!</p>
+              <p className="text-xs text-muted-foreground">Biar takdir yang pilih makanmu!</p>
             </div>
           </div>
           <button
@@ -236,7 +236,7 @@ export default function GachaModal({
         </div>
 
         {/* Filter Mode Selector */}
-        <div className="mt-3 grid grid-cols-3 gap-1 rounded-xl bg-background/80 p-1 text-[11px] font-semibold">
+        <div className="mt-3 grid grid-cols-3 gap-1 rounded-xl bg-background/80 p-1 text-xs font-semibold">
           <button
             type="button"
             onClick={() => {
@@ -299,7 +299,7 @@ export default function GachaModal({
             </div>
           ) : (
             <div
-              className={`relative overflow-hidden rounded-2xl border bg-background/90 p-3.5 transition-all duration-300 ${
+              className={`relative overflow-hidden rounded-2xl border bg-background/90 p-3.5 transition-colors duration-300 ${
                 winner
                   ? "border-amber-400/60 ring-2 ring-amber-400/30 shadow-float"
                   : rolling
@@ -309,7 +309,7 @@ export default function GachaModal({
             >
               {/* Winner ribbon */}
               {winner && (
-                <div className="mb-2.5 flex items-center justify-center gap-1.5 rounded-full bg-gradient-to-r from-amber-500/20 via-amber-400/20 to-amber-500/20 py-1 text-[11px] font-bold text-amber-300 border border-amber-400/40 animate-pulse">
+                <div className="mb-2.5 flex items-center justify-center gap-1.5 rounded-full bg-gradient-to-r from-amber-500/20 via-amber-400/20 to-amber-500/20 py-1 text-xs font-bold text-amber-300 border border-amber-400/40">
                   <Sparkles className="h-3.5 w-3.5 fill-amber-300 text-amber-300" />
                   <span>PILIHAN TAKDIR HARI INI!</span>
                 </div>
@@ -329,7 +329,7 @@ export default function GachaModal({
                     <p className="mt-0.5 truncate text-xs text-muted-foreground">
                       {activeDisplay.category} · {formatDistance(dist)}
                     </p>
-                    <p className="mt-1 truncate text-[11px] text-muted-foreground">
+                    <p className="mt-1 truncate text-xs text-muted-foreground">
                       {hoursLabel(activeDisplay)}
                     </p>
                     {lowestPrice !== null && (

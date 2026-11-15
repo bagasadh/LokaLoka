@@ -92,7 +92,7 @@ export function BudgetModal({
                       {opt.label}
                     </span>
                     {opt.value > 0 && (
-                      <span className="rounded-full bg-white/5 px-2 py-0.5 text-[10px] font-medium text-muted-foreground">
+                      <span className="rounded-full bg-white/5 px-2 py-0.5 text-xs font-medium text-muted-foreground">
                         Maks. Rp {opt.value.toLocaleString("id-ID")}
                       </span>
                     )}

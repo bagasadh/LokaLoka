@@ -151,7 +151,7 @@ export function SearchDropdown({
                 <button
                   type="button"
                   onClick={handleClearAllHistory}
-                  className="text-[11px] font-normal text-muted-foreground/80 hover:text-foreground transition-colors"
+                  className="text-xs font-normal text-muted-foreground/80 hover:text-foreground transition-colors"
                 >
                   Hapus semua
                 </button>

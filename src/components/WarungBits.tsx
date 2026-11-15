@@ -24,7 +24,7 @@ export function SourceBadge({ source }: { source: PriceSource }) {
   const community = source === "community";
   return (
     <span
-      className={`inline-flex max-w-full items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-medium ${
+      className={`inline-flex max-w-full items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium ${
         owner
           ? "bg-success/15 text-success border border-success/20"
           : community

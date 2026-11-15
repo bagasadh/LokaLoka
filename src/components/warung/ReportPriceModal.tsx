@@ -256,7 +256,7 @@ export function ReportPriceModal({
                   <AlertTriangle className="h-4 w-4" />
                   Peringatan Getok Harga
                 </p>
-                <p className="mt-1 text-muted-foreground text-[11px]">
+                <p className="mt-1 text-muted-foreground text-xs">
                   Bantu sesama pembeli agar tidak tertipu harga yang sengaja ditembak mahal tanpa
                   daftar menu.
                 </p>
@@ -323,7 +323,7 @@ export function ReportPriceModal({
               <CreditCard className="h-4 w-4 text-cyan-400" />
               <span>Warung ini menerima pembayaran QRIS</span>
             </label>
-            <p className="mt-1 text-[11px] text-muted-foreground ml-6.5">
+            <p className="mt-1 text-xs text-muted-foreground ml-6.5">
               Centang jika warung sudah menyediakan QRIS / e-wallet.
             </p>
           </div>

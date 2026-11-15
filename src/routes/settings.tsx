@@ -211,7 +211,7 @@ function SettingsPage() {
             <button
               type="button"
               onClick={() => handleSetTheme("dark")}
-              className={`flex flex-col rounded-2xl border p-3 text-left transition-all active:scale-95 ${
+              className={`flex flex-col rounded-2xl border p-3 text-left transition-colors active:scale-95 ${
                 mapTheme === "dark"
                   ? "border-amber-500/50 bg-amber-500/10 shadow-xs"
                   : "border-white/5 bg-white/5 hover:border-white/15"
@@ -224,7 +224,7 @@ function SettingsPage() {
                 {mapTheme === "dark" && <CheckCircle2 className="h-4 w-4 text-amber-400" />}
               </div>
               <p className="mt-2.5 font-display text-xs font-bold text-foreground">Versi Hitam</p>
-              <p className="mt-0.5 text-[11px] text-muted-foreground leading-tight">
+              <p className="mt-0.5 text-xs text-muted-foreground leading-tight">
                 Kontras gelap, hemat baterai, nyaman malam hari
               </p>
             </button>
@@ -233,7 +233,7 @@ function SettingsPage() {
             <button
               type="button"
               onClick={() => handleSetTheme("light")}
-              className={`flex flex-col rounded-2xl border p-3 text-left transition-all active:scale-95 ${
+              className={`flex flex-col rounded-2xl border p-3 text-left transition-colors active:scale-95 ${
                 mapTheme === "light"
                   ? "border-amber-500/50 bg-amber-500/10 shadow-xs"
                   : "border-white/5 bg-white/5 hover:border-white/15"
@@ -246,7 +246,7 @@ function SettingsPage() {
                 {mapTheme === "light" && <CheckCircle2 className="h-4 w-4 text-amber-400" />}
               </div>
               <p className="mt-2.5 font-display text-xs font-bold text-foreground">Versi Putih</p>
-              <p className="mt-0.5 text-[11px] text-muted-foreground leading-tight">
+              <p className="mt-0.5 text-xs text-muted-foreground leading-tight">
                 Peta terang klasik, bersih & jelas di siang hari
               </p>
             </button>
@@ -267,7 +267,7 @@ function SettingsPage() {
             <button
               type="button"
               onClick={() => handleSetPinStyle("badge")}
-              className={`rounded-2xl border p-3 text-left transition-all active:scale-95 ${
+              className={`rounded-2xl border p-3 text-left transition-colors active:scale-95 ${
                 pinStyle === "badge"
                   ? "border-primary/50 bg-primary/10 shadow-xs"
                   : "border-white/5 bg-white/5 hover:border-white/15"
@@ -278,7 +278,7 @@ function SettingsPage() {
                 {pinStyle === "badge" && <Check className="h-4 w-4 text-primary" />}
               </div>
               <p className="mt-2 font-display text-xs font-bold text-foreground">Harga & Menu</p>
-              <p className="mt-0.5 text-[11px] text-muted-foreground">
+              <p className="mt-0.5 text-xs text-muted-foreground">
                 Label harga termurah & ikon makanan
               </p>
             </button>
@@ -286,7 +286,7 @@ function SettingsPage() {
             <button
               type="button"
               onClick={() => handleSetPinStyle("compact")}
-              className={`rounded-2xl border p-3 text-left transition-all active:scale-95 ${
+              className={`rounded-2xl border p-3 text-left transition-colors active:scale-95 ${
                 pinStyle === "compact"
                   ? "border-primary/50 bg-primary/10 shadow-xs"
                   : "border-white/5 bg-white/5 hover:border-white/15"
@@ -297,7 +297,7 @@ function SettingsPage() {
                 {pinStyle === "compact" && <Check className="h-4 w-4 text-primary" />}
               </div>
               <p className="mt-2 font-display text-xs font-bold text-foreground">Pin Ringkas</p>
-              <p className="mt-0.5 text-[11px] text-muted-foreground">
+              <p className="mt-0.5 text-xs text-muted-foreground">
                 Pin bulat bersih tanpa gambar makanan
               </p>
             </button>

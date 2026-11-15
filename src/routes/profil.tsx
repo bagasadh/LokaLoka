@@ -134,17 +134,17 @@ function ProfilPage() {
                   {s.user.name}
                 </h2>
                 {s.user.ownerOf ? (
-                  <span className="shrink-0 rounded-full border border-amber-500/30 bg-amber-500/10 px-2 py-0.5 text-[10px] font-semibold text-amber-300">
+                  <span className="shrink-0 rounded-full border border-amber-500/30 bg-amber-500/10 px-2 py-0.5 text-xs font-semibold text-amber-300">
                     👑 Pemilik
                   </span>
                 ) : (
-                  <span className="shrink-0 rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-[10px] font-semibold text-muted-foreground">
+                  <span className="shrink-0 rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-xs font-semibold text-muted-foreground">
                     Warga Lokal
                   </span>
                 )}
               </div>
               <p className="truncate text-xs text-muted-foreground">{s.user.email}</p>
-              <div className="mt-1.5 flex items-center gap-2 text-[11px] text-muted-foreground">
+              <div className="mt-1.5 flex items-center gap-2 text-xs text-muted-foreground">
                 <span>{mineReviews.length} ulasan ditulis</span>
                 <span>·</span>
                 <span>{bookmarkedWarungs.length} warung favorit</span>
@@ -174,7 +174,7 @@ function ProfilPage() {
         <button
           type="button"
           onClick={() => setTab("ulasan")}
-          className={`flex h-10 items-center justify-center gap-2 rounded-xl text-xs font-semibold transition-all ${
+          className={`flex h-10 items-center justify-center gap-2 rounded-xl text-xs font-semibold transition-colors ${
             tab === "ulasan"
               ? "bg-foreground text-background shadow-xs"
               : "text-muted-foreground hover:text-foreground"
@@ -186,7 +186,7 @@ function ProfilPage() {
         <button
           type="button"
           onClick={() => setTab("favorit")}
-          className={`flex h-10 items-center justify-center gap-2 rounded-xl text-xs font-semibold transition-all ${
+          className={`flex h-10 items-center justify-center gap-2 rounded-xl text-xs font-semibold transition-colors ${
             tab === "favorit"
               ? "bg-foreground text-background shadow-xs"
               : "text-muted-foreground hover:text-foreground"
@@ -202,7 +202,7 @@ function ProfilPage() {
         <section className="mt-4 space-y-3">
           {/* Subfilter & edukasi */}
           <div className="flex flex-wrap items-center justify-between gap-2">
-            <span className="inline-flex items-center gap-1 rounded-full border border-sky-400/30 bg-sky-400/10 px-2.5 py-1 text-[11px] font-semibold text-sky-300">
+            <span className="inline-flex items-center gap-1 rounded-full border border-sky-400/30 bg-sky-400/10 px-2.5 py-1 text-xs font-semibold text-sky-300">
               <Receipt className="h-3 w-3" />
               Semua ulasan wajib bukti struk
             </span>
@@ -214,7 +214,7 @@ function ProfilPage() {
                     key={t}
                     type="button"
                     onClick={() => setUlasanSubTab(t)}
-                    className={`h-7 rounded-full px-3 text-[11px] font-semibold transition-colors ${
+                    className={`h-7 rounded-full px-3 text-xs font-semibold transition-colors ${
                       ulasanSubTab === t ? "bg-foreground text-background" : "text-muted-foreground"
                     }`}
                   >
@@ -262,7 +262,7 @@ function ProfilPage() {
                             {w.name}
                           </span>
                         </div>
-                        <span className="shrink-0 text-[11px] font-semibold text-primary">
+                        <span className="shrink-0 text-xs font-semibold text-primary">
                           Lihat Warung →
                         </span>
                       </Link>
@@ -285,13 +285,13 @@ function ProfilPage() {
                       <button
                         type="button"
                         onClick={() => setSelectedReceipt(r.receipt)}
-                        className="mt-2.5 inline-flex items-center gap-1.5 rounded-full bg-sky-400/10 px-2.5 py-1 text-[11px] font-medium text-sky-300 transition-colors hover:bg-sky-400/20 active:scale-95"
+                        className="mt-2.5 inline-flex items-center gap-1.5 rounded-full bg-sky-400/10 px-2.5 py-1 text-xs font-medium text-sky-300 transition-colors hover:bg-sky-400/20 active:scale-95"
                       >
                         <Receipt className="h-3 w-3" />
                         <span>Pembelian terverifikasi struk · Lihat</span>
                       </button>
                     ) : (
-                      <p className="mt-2.5 inline-flex items-center gap-1 rounded-full bg-success/15 px-2.5 py-1 text-[11px] font-medium text-success">
+                      <p className="mt-2.5 inline-flex items-center gap-1 rounded-full bg-success/15 px-2.5 py-1 text-xs font-medium text-success">
                         <Receipt className="h-3 w-3" />
                         Pembelian terverifikasi
                       </p>
@@ -378,7 +378,7 @@ function ProfilPage() {
                         <Stars value={rating.avg} size={10} />
                         <span className="truncate">· {formatDistance(dist)}</span>
                       </div>
-                      <div className="mt-1 flex items-center gap-2 text-[11px]">
+                      <div className="mt-1 flex items-center gap-2 text-xs">
                         <span className="truncate text-muted-foreground">{w.category}</span>
                         {minP !== null && (
                           <span className="font-semibold text-amber-300">
