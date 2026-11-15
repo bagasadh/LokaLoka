@@ -86,8 +86,10 @@ export function WarungList({
           return (
             <li key={w.id}>
               <div
-                className={`grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 py-3 transition-colors ${
-                  selected === w.id ? "opacity-100" : ""
+                className={`-mx-2 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 rounded-2xl px-2.5 py-3 transition-colors ${
+                  selected === w.id
+                    ? "bg-primary/10 ring-1 ring-primary/30"
+                    : "hover:bg-white/[0.03]"
                 }`}
               >
                 <button

@@ -12,6 +12,7 @@ import {
   Minus,
   Navigation,
   Plus,
+  Settings,
   User,
   X,
 } from "lucide-react";
@@ -501,13 +502,13 @@ function Home() {
     setFilters((fs) => (fs.includes(f) ? fs.filter((x) => x !== f) : [...fs, f]));
 
   return (
-    <main className="relative h-dvh w-full overflow-hidden bg-background lg:flex">
-      {/* Desktop sidebar */}
+    <main className="relative h-dvh w-full overflow-hidden bg-background md:flex">
+      {/* Desktop & split-screen sidebar */}
       <aside
-        className={`hidden h-dvh w-[400px] shrink-0 flex-col border-r border-white/10 bg-background transition-all duration-300 ease-in-out lg:flex ${
+        className={`hidden h-dvh w-[350px] shrink-0 flex-col border-r border-white/10 bg-background transition-all duration-300 ease-in-out md:flex lg:w-[400px] ${
           isTransparent
-            ? "lg:-ml-[400px] lg:opacity-0 lg:pointer-events-none"
-            : "lg:ml-0 lg:opacity-100"
+            ? "md:-ml-[350px] lg:-ml-[400px] md:opacity-0 md:pointer-events-none"
+            : "md:ml-0 md:opacity-100"
         }`}
       >
         <div className="border-b border-white/5 p-4">
@@ -518,19 +519,29 @@ function Home() {
                 Lokaloka
               </span>
             </div>
-            <Link
-              to={s.user?.ownerOf ? "/pemilik" : "/profil"}
-              aria-label="Profil"
-              className="grid h-8 w-8 place-items-center rounded-lg border border-white/10 bg-card text-foreground transition-all hover:bg-muted active:scale-95"
-            >
-              {s.user ? (
-                <span className="grid h-6 w-6 place-items-center rounded-md bg-foreground font-display text-xs font-bold text-background">
-                  {s.user.name.charAt(0).toUpperCase()}
-                </span>
-              ) : (
-                <User className="h-4 w-4 text-muted-foreground" />
-              )}
-            </Link>
+            <div className="flex items-center gap-1.5">
+              <Link
+                to="/settings"
+                aria-label="Pengaturan"
+                title="Pengaturan & Tema Peta"
+                className="grid h-8 w-8 place-items-center rounded-lg border border-white/10 bg-card text-foreground transition-all hover:bg-muted active:scale-95"
+              >
+                <Settings className="h-4 w-4 text-muted-foreground" />
+              </Link>
+              <Link
+                to={s.user?.ownerOf ? "/pemilik" : "/profil"}
+                aria-label="Profil"
+                className="grid h-8 w-8 place-items-center rounded-lg border border-white/10 bg-card text-foreground transition-all hover:bg-muted active:scale-95"
+              >
+                {s.user ? (
+                  <span className="grid h-6 w-6 place-items-center rounded-md bg-primary font-display text-xs font-bold text-primary-foreground">
+                    {s.user.name.charAt(0).toUpperCase()}
+                  </span>
+                ) : (
+                  <User className="h-4 w-4 text-muted-foreground" />
+                )}
+              </Link>
+            </div>
           </div>
           <TopBar q={q} setQ={setQ} search={search} />
           <Chips
@@ -565,7 +576,7 @@ function Home() {
         </div>
       </aside>
 
-      <section className="absolute inset-0 lg:relative lg:flex-1 lg:min-w-0 lg:h-full">
+      <section className="absolute inset-0 md:relative md:flex-1 md:min-w-0 md:h-full">
         <ClientOnly fallback={<div className="map-fallback absolute inset-0" />}>
           <Suspense fallback={<div className="map-fallback absolute inset-0" />}>
             <MapView
@@ -608,13 +619,13 @@ function Home() {
           </div>
         )}
 
-        {/* Mobile top overlay: Integrated Header */}
+        {/* Mobile top overlay: Floating Glass Header */}
         <header
-          className={`pointer-events-auto absolute inset-x-0 top-0 border-b border-white/10 bg-background/95 px-3 pt-safe pb-2 backdrop-blur-md shadow-float transition-all duration-300 ease-in-out lg:hidden ${
+          className={`pointer-events-auto absolute inset-x-2.5 top-2.5 rounded-2xl border border-white/12 bg-background/90 px-3 py-2.5 backdrop-blur-xl shadow-float transition-all duration-300 ease-in-out md:hidden ${
             searchOpen ? "z-40" : "z-20"
           } ${
             isTransparent
-              ? "-translate-y-full opacity-0 pointer-events-none"
+              ? "-translate-y-[130%] opacity-0 pointer-events-none"
               : "translate-y-0 opacity-100"
           }`}
         >
@@ -676,7 +687,7 @@ function Home() {
                 className="grid h-7 w-7 place-items-center rounded-lg border border-white/10 bg-white/[0.06] text-foreground transition-all hover:bg-white/12 active:scale-95"
               >
                 {s.user ? (
-                  <span className="grid h-5 w-5 place-items-center rounded bg-foreground font-display text-[10px] font-bold text-background">
+                  <span className="grid h-5 w-5 place-items-center rounded bg-primary font-display text-[10px] font-bold text-primary-foreground">
                     {s.user.name.charAt(0).toUpperCase()}
                   </span>
                 ) : (
@@ -703,7 +714,7 @@ function Home() {
         </header>
 
         {/* Desktop Map Controls (Mode Transparan, Gaya Penanda, Perbesar, Perkecil, Lokasi Saya) */}
-        <div className="hidden lg:absolute lg:bottom-6 lg:right-6 lg:z-20 lg:flex lg:flex-col lg:items-center lg:gap-2">
+        <div className="hidden md:absolute md:bottom-6 md:right-6 md:z-20 md:flex md:flex-col md:items-center md:gap-2">
           <button
             type="button"
             aria-label="Mode peta transparan / layar penuh"
@@ -764,13 +775,13 @@ function Home() {
         {/* Selected warung card (desktop only) */}
         {sel && (
           <div
-            className={`hidden lg:block lg:absolute lg:bottom-6 lg:left-6 lg:z-30 lg:w-[360px] transition-all duration-300 ${
+            className={`hidden md:block md:absolute md:bottom-6 md:left-6 md:z-30 md:w-[340px] lg:w-[360px] transition-all duration-300 ${
               isTransparent
                 ? "translate-y-4 opacity-0 pointer-events-none"
                 : "translate-y-0 opacity-100"
             }`}
           >
-            <div className="rounded-2xl border border-white/10 bg-background/95 p-3.5 shadow-float backdrop-blur-md">
+            <div className="rounded-2xl border border-white/12 bg-background/92 p-3.5 shadow-float backdrop-blur-xl">
               <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3">
                 <img
                   src={sel.w.cover || PLACEHOLDER_COVER}
@@ -834,7 +845,7 @@ function Home() {
               </div>
               <button
                 onClick={() => navigate({ to: "/warung/$id", params: { id: sel.w.id } })}
-                className="mt-3 flex h-9 w-full items-center justify-center gap-1.5 rounded-lg bg-foreground text-xs font-semibold text-background transition-transform hover:opacity-90 active:scale-95"
+                className="mt-3 flex h-9 w-full items-center justify-center gap-1.5 rounded-full bg-primary text-xs font-semibold text-primary-foreground shadow-xs transition hover:opacity-90 active:scale-95"
               >
                 <span>Lihat profil & menu</span>
                 <ArrowRight className="h-3.5 w-3.5" />

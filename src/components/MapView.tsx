@@ -360,7 +360,7 @@ export default function MapView({
       <div
         ref={el}
         className={`h-full w-full ${mapTheme === "light" ? "map-theme-light" : ""}`}
-        style={{ background: mapTheme === "light" ? "#f4f4f5" : "#202020" }}
+        style={{ background: mapTheme === "light" ? "#f4f4f5" : "#141210" }}
       />
     </div>
   );

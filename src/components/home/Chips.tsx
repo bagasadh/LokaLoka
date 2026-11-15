@@ -64,7 +64,7 @@ export function Chips({
   onTogglePinStyle?: () => void;
 }) {
   return (
-    <div className="no-scrollbar -mx-3 mt-2 flex items-center gap-1.5 overflow-x-auto px-3 pb-0.5 lg:mx-0 lg:flex-wrap lg:px-0">
+    <div className="no-scrollbar -mx-3 mt-2 flex items-center gap-1.5 overflow-x-auto px-3 pb-0.5 md:mx-0 md:flex-wrap md:px-0">
       {/* Tombol Acak / Gacha */}
       <button
         type="button"
@@ -104,12 +104,12 @@ export function Chips({
         onClick={onOpenBudget}
         className={`flex h-8 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg px-2.5 text-xs font-medium transition-colors active:scale-95 ${
           budget > 0
-            ? "bg-foreground text-background font-semibold"
+            ? "bg-primary text-primary-foreground font-semibold shadow-xs"
             : "border border-white/10 bg-card text-muted-foreground hover:bg-secondary hover:text-foreground"
         }`}
       >
         <CircleDollarSign
-          className={`h-3.5 w-3.5 ${budget > 0 ? "text-background" : "text-muted-foreground"}`}
+          className={`h-3.5 w-3.5 ${budget > 0 ? "text-primary-foreground" : "text-muted-foreground"}`}
         />
         <span>{budget > 0 ? `≤ Rp ${budget / 1000}rb` : "Budget"}</span>
         {budget > 0 ? (
@@ -147,7 +147,7 @@ export function Chips({
         onClick={() => toggle("Favorit")}
         className={`flex h-8 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg px-2.5 text-xs font-medium transition-colors active:scale-95 ${
           filters.includes("Favorit")
-            ? "bg-foreground text-background font-semibold"
+            ? "bg-primary text-primary-foreground font-semibold shadow-xs"
             : "border border-white/10 bg-card text-muted-foreground hover:bg-secondary hover:text-foreground"
         }`}
       >
@@ -165,7 +165,7 @@ export function Chips({
           type="button"
           onClick={onClearArea}
           aria-label={`Hapus lokasi pencarian ${area.name}`}
-          className="flex h-8 shrink-0 items-center gap-1.5 rounded-lg bg-foreground px-2.5 text-xs font-semibold text-background transition-transform active:scale-95"
+          className="flex h-8 shrink-0 items-center gap-1.5 rounded-lg bg-primary px-2.5 text-xs font-semibold text-primary-foreground shadow-xs transition-transform active:scale-95"
         >
           <MapPin className="h-3.5 w-3.5 shrink-0" />
           <span className="max-w-[10rem] truncate">{area.name}</span>
@@ -183,7 +183,7 @@ export function Chips({
             onClick={() => toggle(f)}
             className={`flex h-8 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg px-2.5 text-xs font-medium transition-colors active:scale-95 ${
               on
-                ? "bg-foreground text-background font-semibold"
+                ? "bg-primary text-primary-foreground font-semibold shadow-xs"
                 : "border border-white/10 bg-card text-muted-foreground hover:bg-secondary hover:text-foreground"
             }`}
           >
@@ -195,7 +195,9 @@ export function Chips({
             {f === "Rating 4+" && (
               <Star
                 className={`h-3 w-3 ${
-                  on ? "fill-background text-background" : "fill-amber-400 text-amber-400"
+                  on
+                    ? "fill-primary-foreground text-primary-foreground"
+                    : "fill-amber-400 text-amber-400"
                 }`}
               />
             )}

@@ -16,14 +16,14 @@ export function BottomNav({ hidden }: { hidden?: boolean } = {}) {
   const item = (active: boolean) =>
     `relative flex h-full min-w-0 flex-1 flex-col items-center justify-center gap-1 text-[11px] transition-colors ${
       active
-        ? "font-semibold text-foreground"
+        ? "font-semibold text-primary"
         : "font-medium text-muted-foreground hover:text-foreground"
     }`;
 
   return (
     <nav
       aria-label="Navigasi utama"
-      className={`fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-background/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-md transition-all duration-300 ease-in-out lg:hidden ${
+      className={`fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-background/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl transition-all duration-300 ease-in-out md:hidden ${
         hidden ? "translate-y-full opacity-0 pointer-events-none" : "translate-y-0 opacity-100"
       }`}
     >
@@ -32,7 +32,7 @@ export function BottomNav({ hidden }: { hidden?: boolean } = {}) {
         style={{ height: `${DOCK_HEIGHT_REM}rem` }}
       >
         <Link to="/" className={item(isMapActive)} aria-current={isMapActive ? "page" : undefined}>
-          {isMapActive && <span className="absolute top-0 h-0.5 w-8 rounded-full bg-foreground" />}
+          {isMapActive && <span className="absolute top-0 h-0.5 w-8 rounded-full bg-primary" />}
           <MapIcon className="h-[18px] w-[18px]" strokeWidth={isMapActive ? 2.25 : 1.75} />
           <span>Peta</span>
         </Link>
@@ -42,7 +42,7 @@ export function BottomNav({ hidden }: { hidden?: boolean } = {}) {
           aria-current={isSettingsActive ? "page" : undefined}
         >
           {isSettingsActive && (
-            <span className="absolute top-0 h-0.5 w-8 rounded-full bg-foreground" />
+            <span className="absolute top-0 h-0.5 w-8 rounded-full bg-primary" />
           )}
           <Settings className="h-[18px] w-[18px]" strokeWidth={isSettingsActive ? 2.25 : 1.75} />
           <span>Settings</span>

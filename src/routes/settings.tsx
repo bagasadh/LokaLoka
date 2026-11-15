@@ -110,7 +110,7 @@ function SettingsPage() {
   };
 
   return (
-    <main className="mx-auto min-h-dvh w-full max-w-lg px-4 pt-safe pb-28 lg:pb-10">
+    <main className="mx-auto min-h-dvh w-full max-w-lg px-4 pt-safe pb-28 md:pb-10">
       {/* Header */}
       <div className="flex items-center justify-between pt-3 pb-4">
         <Link

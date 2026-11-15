@@ -76,15 +76,15 @@ export function WarungCarousel({
   const s = useStore();
 
   return (
-    <div className="lg:hidden">
+    <div className="md:hidden">
       {mobileView === "list" ? (
         <>
           <div
-            className="fixed inset-0 z-30 bg-black/60 backdrop-blur-xs transition-opacity lg:hidden"
+            className="fixed inset-0 z-30 bg-black/60 backdrop-blur-xs transition-opacity md:hidden"
             onClick={() => setMobileView("carousel")}
             aria-hidden="true"
           />
-          <div className="fixed inset-x-0 bottom-dock z-30 flex max-h-[80dvh] flex-col rounded-t-2xl border-t border-white/10 bg-background shadow-float transition-all duration-300 lg:hidden">
+          <div className="fixed inset-x-0 bottom-dock z-30 flex max-h-[80dvh] flex-col rounded-t-2xl border-t border-white/10 bg-background shadow-float transition-all duration-300 md:hidden">
             <div className="flex shrink-0 items-center justify-between border-b border-white/5 px-4 py-3">
               <div className="flex min-w-0 items-center gap-2">
                 <Store className="h-4 w-4 shrink-0 text-muted-foreground" />
@@ -127,11 +127,11 @@ export function WarungCarousel({
               : "translate-y-0 opacity-100"
           }`}
         >
-          {/* Bar di atas carousel: Info warung di kiri, Tombol GPS di kanan */}
+          {/* Bar di atas carousel: Info warung ringkas di kiri, Tombol GPS di kanan */}
           <div className="mx-3 mb-2 flex items-center justify-between gap-2">
             {list.length > 0 ? (
-              <div className="flex min-w-0 flex-1 items-center justify-between rounded-xl border border-white/10 bg-background/95 px-3 py-1.5 shadow-float backdrop-blur-md">
-                <div className="flex min-w-0 flex-1 items-center gap-1.5 pr-2">
+              <div className="inline-flex min-w-0 max-w-[calc(100vw-4.5rem)] items-center gap-2 rounded-full border border-white/12 bg-background/90 py-1 pl-3.5 pr-1.5 shadow-float backdrop-blur-xl">
+                <div className="flex min-w-0 items-center gap-1.5">
                   <span className="truncate font-display text-xs font-semibold text-foreground">
                     {areaTitle}
                   </span>
@@ -139,15 +139,15 @@ export function WarungCarousel({
                     · {list.length}
                   </span>
                   {nearby.status === "loading" && (
-                    <Loader2 className="h-3 w-3 animate-spin text-muted-foreground shrink-0" />
+                    <Loader2 className="h-3 w-3 shrink-0 animate-spin text-muted-foreground" />
                   )}
                 </div>
-                <div className="flex shrink-0 items-center gap-1.5">
+                <div className="flex shrink-0 items-center gap-1">
                   {nearby.status === "error" && (
                     <button
                       type="button"
                       onClick={() => setRetry((r) => r + 1)}
-                      className="rounded-md bg-white/10 px-2 py-0.5 text-[10px] font-semibold text-foreground hover:bg-white/15 active:scale-95"
+                      className="rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-semibold text-foreground hover:bg-white/15 active:scale-95"
                     >
                       Coba lagi
                     </button>
@@ -155,7 +155,7 @@ export function WarungCarousel({
                   <button
                     type="button"
                     onClick={() => setMobileView("list")}
-                    className="flex items-center gap-1 rounded-lg bg-white/[0.07] px-2.5 py-1 text-[11px] font-medium text-foreground/90 transition-colors hover:bg-white/12 active:scale-95"
+                    className="flex items-center gap-1 rounded-full bg-white/[0.08] px-2.5 py-1 text-[11px] font-medium text-foreground/90 transition-colors hover:bg-white/12 active:scale-95"
                   >
                     <span>Daftar</span>
                     <ChevronUp className="h-3.5 w-3.5 text-muted-foreground" />
@@ -171,7 +171,7 @@ export function WarungCarousel({
               type="button"
               aria-label="Lokasi saya"
               onClick={goHome}
-              className="grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-white/10 bg-background/95 text-locate shadow-float backdrop-blur-md transition-transform active:scale-90"
+              className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-white/12 bg-background/90 text-locate shadow-float backdrop-blur-xl transition-transform active:scale-90"
               title="Pusatkan peta ke lokasi saya"
             >
               <LocateFixed className="h-4 w-4" />
@@ -209,10 +209,10 @@ export function WarungCarousel({
                         onSelect(isSelected ? null : w.id);
                       }
                     }}
-                    className={`flex w-[80vw] max-w-[305px] shrink-0 snap-center cursor-pointer flex-col justify-between rounded-2xl bg-background/95 p-3 shadow-float border backdrop-blur-md transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary active:scale-[0.99] ${
+                    className={`flex w-[80vw] max-w-[305px] shrink-0 snap-center cursor-pointer flex-col justify-between rounded-2xl bg-background/92 p-3 shadow-float border backdrop-blur-xl transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary active:scale-[0.99] ${
                       isSelected
-                        ? "border-foreground/60 ring-1 ring-foreground/30 bg-card"
-                        : "border-white/10 hover:border-white/20"
+                        ? "border-primary/60 ring-1 ring-primary/30 bg-card"
+                        : "border-white/12 hover:border-white/25"
                     }`}
                   >
                     <div className="grid grid-cols-[auto_minmax(0,1fr)] items-start gap-2.5">
@@ -227,7 +227,7 @@ export function WarungCarousel({
                         title="Buka profil warung"
                       />
                       <div className="min-w-0">
-                        <div className="flex items-start justify-between gap-1.5">
+                        <div className="flex items-start justify-between gap-1">
                           <p
                             onClick={(e) => {
                               e.stopPropagation();
@@ -238,49 +238,31 @@ export function WarungCarousel({
                           >
                             {w.name}
                           </p>
-                          <div className="flex shrink-0 items-center gap-1">
-                            <button
-                              type="button"
-                              aria-label={
-                                isBookmarked(s, w.id) ? "Hapus dari favorit" : "Simpan ke favorit"
-                              }
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                const added = actions.toggleBookmark(w.id);
-                                toast.success(
-                                  added
-                                    ? `"${w.name}" disimpan ke favorit`
-                                    : "Dihapus dari favorit",
-                                );
-                              }}
-                              className="grid h-8 w-8 -mr-1 -mt-1 place-items-center rounded-md text-muted-foreground transition hover:bg-white/10 active:scale-90"
-                              title={
-                                isBookmarked(s, w.id) ? "Hapus dari favorit" : "Simpan ke favorit"
-                              }
-                            >
-                              <Heart
-                                className={`h-3.5 w-3.5 ${
-                                  isBookmarked(s, w.id)
-                                    ? "fill-rose-500 text-rose-500"
-                                    : "text-muted-foreground hover:text-foreground"
-                                }`}
-                              />
-                            </button>
-                            <span
-                              className={`shrink-0 rounded-md px-1.5 py-0.5 text-[10px] font-medium ${
-                                state === "open"
-                                  ? "bg-emerald-500/15 text-emerald-400"
-                                  : "bg-white/[0.06] text-muted-foreground"
+                          <button
+                            type="button"
+                            aria-label={
+                              isBookmarked(s, w.id) ? "Hapus dari favorit" : "Simpan ke favorit"
+                            }
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              const added = actions.toggleBookmark(w.id);
+                              toast.success(
+                                added ? `"${w.name}" disimpan ke favorit` : "Dihapus dari favorit",
+                              );
+                            }}
+                            className="grid h-8 w-8 -mr-1.5 -mt-1.5 shrink-0 place-items-center rounded-lg text-muted-foreground transition hover:bg-white/10 active:scale-90"
+                            title={
+                              isBookmarked(s, w.id) ? "Hapus dari favorit" : "Simpan ke favorit"
+                            }
+                          >
+                            <Heart
+                              className={`h-3.5 w-3.5 ${
+                                isBookmarked(s, w.id)
+                                  ? "fill-rose-500 text-rose-500"
+                                  : "text-muted-foreground hover:text-foreground"
                               }`}
-                            >
-                              {OPEN_LABEL[state].text}
-                            </span>
-                            {timing.isClosingSoon && (
-                              <span className="shrink-0 rounded-md bg-amber-500/15 px-1.5 py-0.5 text-[10px] font-medium text-amber-300">
-                                Tutup {timing.minutesLeft}m
-                              </span>
-                            )}
-                          </div>
+                            />
+                          </button>
                         </div>
 
                         <div className="mt-0.5 flex items-center gap-1.5 text-xs text-muted-foreground">
@@ -290,59 +272,60 @@ export function WarungCarousel({
                                 {rating.avg.toFixed(1)}
                               </span>
                               <Stars value={rating.avg} size={11} />
-                              <span className="truncate">
-                                · {formatDistance(dist)} · {w.category}
-                              </span>
+                              <span className="truncate">· {formatDistance(dist)}</span>
                             </>
                           ) : (
                             <span className="truncate">
                               {formatDistance(dist)} · {w.category}
                             </span>
                           )}
+                          <span className={`shrink-0 font-medium ${OPEN_LABEL[state].cls}`}>
+                            · {OPEN_LABEL[state].text}
+                          </span>
                         </div>
 
-                        <div className="mt-1.5 flex flex-wrap items-center gap-1">
-                          {priceRadar.tier === "cheap" && (
-                            <span className="inline-flex items-center gap-1 rounded-md bg-emerald-500/15 px-1.5 py-0.5 text-[10px] font-medium text-emerald-300">
+                        <div className="mt-1.5 flex items-center gap-1.5 overflow-hidden whitespace-nowrap">
+                          {timing.isClosingSoon ? (
+                            <span className="inline-flex shrink-0 items-center rounded-md bg-amber-500/15 px-1.5 py-0.5 text-[10px] font-medium text-amber-300">
+                              Tutup {timing.minutesLeft}m
+                            </span>
+                          ) : priceRadar.tier === "cheap" ? (
+                            <span className="inline-flex shrink-0 items-center gap-1 rounded-md bg-emerald-500/15 px-1.5 py-0.5 text-[10px] font-medium text-emerald-300">
                               <ShieldCheck className="h-2.5 w-2.5" />
                               <span>Ramah Kantong</span>
                             </span>
-                          )}
-                          {priceRadar.tier === "fair" && (
-                            <span className="inline-flex items-center gap-1 rounded-md bg-emerald-500/12 px-1.5 py-0.5 text-[10px] font-medium text-emerald-300/90">
+                          ) : priceRadar.tier === "fair" ? (
+                            <span className="inline-flex shrink-0 items-center gap-1 rounded-md bg-emerald-500/12 px-1.5 py-0.5 text-[10px] font-medium text-emerald-300/90">
                               <ShieldCheck className="h-2.5 w-2.5" />
                               <span>Harga Wajar</span>
                             </span>
-                          )}
-                          {priceRadar.tier === "overpriced" && (
-                            <span className="inline-flex items-center gap-1 rounded-md bg-rose-500/15 px-1.5 py-0.5 text-[10px] font-medium text-rose-300">
+                          ) : priceRadar.tier === "overpriced" ? (
+                            <span className="inline-flex shrink-0 items-center gap-1 rounded-md bg-rose-500/15 px-1.5 py-0.5 text-[10px] font-medium text-rose-300">
                               <ShieldAlert className="h-2.5 w-2.5" />
                               <span>Waspada Getok</span>
                             </span>
-                          )}
-                          {w.hasQris && (
-                            <span className="inline-flex items-center gap-1 rounded-md bg-white/[0.07] px-1.5 py-0.5 text-[10px] font-medium text-foreground/85">
+                          ) : null}
+
+                          {w.hasQris ? (
+                            <span className="inline-flex shrink-0 items-center gap-1 rounded-md bg-white/[0.07] px-1.5 py-0.5 text-[10px] font-medium text-foreground/85">
                               <CreditCard className="h-2.5 w-2.5 text-muted-foreground" />
                               <span>QRIS</span>
                             </span>
-                          )}
-                          {timing.isLateNight && (
-                            <span className="inline-flex items-center gap-1 rounded-md bg-white/[0.07] px-1.5 py-0.5 text-[10px] font-medium text-foreground/85">
-                              <span>Buka Malam</span>
-                            </span>
-                          )}
-                          {hasReceipt && (
-                            <span className="inline-flex items-center gap-1 rounded-md bg-white/[0.07] px-1.5 py-0.5 text-[10px] font-medium text-foreground/85">
+                          ) : hasReceipt ? (
+                            <span className="inline-flex shrink-0 items-center gap-1 rounded-md bg-white/[0.07] px-1.5 py-0.5 text-[10px] font-medium text-foreground/85">
                               <Receipt className="h-2.5 w-2.5 text-muted-foreground" />
                               <span>Ada Struk</span>
                             </span>
-                          )}
-                          {w.registered && (
-                            <span className="inline-flex items-center gap-1 rounded-md bg-white/[0.07] px-1.5 py-0.5 text-[10px] font-medium text-foreground/85">
+                          ) : timing.isLateNight ? (
+                            <span className="inline-flex shrink-0 items-center gap-1 rounded-md bg-white/[0.07] px-1.5 py-0.5 text-[10px] font-medium text-foreground/85">
+                              <span>Buka Malam</span>
+                            </span>
+                          ) : w.registered ? (
+                            <span className="inline-flex shrink-0 items-center gap-1 rounded-md bg-white/[0.07] px-1.5 py-0.5 text-[10px] font-medium text-foreground/85">
                               <CheckCircle2 className="h-2.5 w-2.5 text-muted-foreground" />
                               <span>Terverifikasi</span>
                             </span>
-                          )}
+                          ) : null}
                         </div>
                       </div>
                     </div>
@@ -367,7 +350,7 @@ export function WarungCarousel({
                           e.stopPropagation();
                           onNavigateToWarung(w.id);
                         }}
-                        className="inline-flex items-center gap-1 rounded-lg bg-foreground px-2.5 py-1 text-xs font-semibold text-background transition-transform hover:opacity-90 active:scale-95"
+                        className="inline-flex items-center gap-1 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground shadow-xs transition hover:opacity-90 active:scale-95"
                         title="Buka profil & menu warung ini"
                       >
                         <span>Lihat profil</span>
