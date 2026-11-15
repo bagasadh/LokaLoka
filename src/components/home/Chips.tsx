@@ -80,7 +80,7 @@ export function Chips({
         <button
           type="button"
           onClick={onTogglePinStyle}
-          className="flex h-8 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg border border-white/10 bg-[#262626] px-2.5 text-xs font-medium text-foreground transition-colors hover:bg-[#2e2e2e] active:scale-95"
+          className="flex h-8 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg border border-white/10 bg-card px-2.5 text-xs font-medium text-foreground transition-colors hover:bg-secondary active:scale-95"
           title="Ganti tampilan penanda warung di peta"
         >
           {pinStyle === "badge" ? (
@@ -100,11 +100,12 @@ export function Chips({
       {/* Filter Budget Mahasiswa */}
       <button
         type="button"
+        aria-pressed={budget > 0}
         onClick={onOpenBudget}
         className={`flex h-8 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg px-2.5 text-xs font-medium transition-colors active:scale-95 ${
           budget > 0
             ? "bg-foreground text-background font-semibold"
-            : "border border-white/10 bg-[#262626] text-muted-foreground hover:bg-[#2e2e2e] hover:text-foreground"
+            : "border border-white/10 bg-card text-muted-foreground hover:bg-secondary hover:text-foreground"
         }`}
       >
         <CircleDollarSign
@@ -115,12 +116,21 @@ export function Chips({
           <span
             role="button"
             tabIndex={0}
+            aria-label="Reset filter budget"
             onClick={(e) => {
               e.stopPropagation();
               setBudget(0);
               toast.info("Filter budget dinonaktifkan");
             }}
-            className="ml-0.5 -mr-1 grid h-4 w-4 place-items-center rounded hover:bg-black/15 active:scale-90"
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                e.stopPropagation();
+                setBudget(0);
+                toast.info("Filter budget dinonaktifkan");
+              }
+            }}
+            className="ml-0.5 -mr-1 grid h-5 w-5 place-items-center rounded hover:bg-black/15 active:scale-90"
             title="Reset filter budget"
           >
             <X className="h-2.5 w-2.5" />
@@ -133,11 +143,12 @@ export function Chips({
       {/* Filter Favorit */}
       <button
         type="button"
+        aria-pressed={filters.includes("Favorit")}
         onClick={() => toggle("Favorit")}
         className={`flex h-8 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg px-2.5 text-xs font-medium transition-colors active:scale-95 ${
           filters.includes("Favorit")
             ? "bg-foreground text-background font-semibold"
-            : "border border-white/10 bg-[#262626] text-muted-foreground hover:bg-[#2e2e2e] hover:text-foreground"
+            : "border border-white/10 bg-card text-muted-foreground hover:bg-secondary hover:text-foreground"
         }`}
       >
         <Heart
@@ -151,6 +162,7 @@ export function Chips({
 
       {area && (
         <button
+          type="button"
           onClick={onClearArea}
           aria-label={`Hapus lokasi pencarian ${area.name}`}
           className="flex h-8 shrink-0 items-center gap-1.5 rounded-lg bg-foreground px-2.5 text-xs font-semibold text-background transition-transform active:scale-95"
@@ -166,11 +178,13 @@ export function Chips({
         return (
           <button
             key={f}
+            type="button"
+            aria-pressed={on}
             onClick={() => toggle(f)}
             className={`flex h-8 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg px-2.5 text-xs font-medium transition-colors active:scale-95 ${
               on
                 ? "bg-foreground text-background font-semibold"
-                : "border border-white/10 bg-[#262626] text-muted-foreground hover:bg-[#2e2e2e] hover:text-foreground"
+                : "border border-white/10 bg-card text-muted-foreground hover:bg-secondary hover:text-foreground"
             }`}
           >
             {f === "Terdekat" && <Navigation className="h-3 w-3" />}

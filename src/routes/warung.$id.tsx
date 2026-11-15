@@ -315,45 +315,6 @@ function WarungPage() {
           </div>
         )}
 
-        {/* Banner Waspada Laporan Getok Harga dari Warga */}
-        {getokReports.length > 0 && (
-          <div className="mt-4 rounded-2xl border border-rose-500/40 bg-rose-500/10 p-3.5 shadow-sm">
-            <div className="flex items-center justify-between gap-2">
-              <div className="flex items-center gap-2 font-bold text-rose-400">
-                <AlertTriangle className="h-4 w-4 shrink-0 text-rose-400" />
-                <span>Peringatan: Ada {getokReports.length} Laporan Getok Harga</span>
-              </div>
-              <span className="rounded-full border border-rose-500/30 bg-rose-500/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-rose-300">
-                Waspada
-              </span>
-            </div>
-            <p className="mt-1 text-xs text-muted-foreground">
-              Warga melaporkan pernah dikenai harga tidak wajar saat membayar. Selalu konfirmasi
-              harga menu terlebih dahulu sebelum memesan!
-            </p>
-            <div className="mt-3 space-y-2 border-t border-rose-500/20 pt-2.5">
-              {getokReports.map((r) => (
-                <div
-                  key={r.id}
-                  className="rounded-xl border border-white/5 bg-background/60 p-2.5 text-xs"
-                >
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="font-semibold text-foreground">{r.itemName}</span>
-                    <span className="font-bold text-rose-400">
-                      Dipatok {formatRupiah(r.newPrice ?? 0)}
-                    </span>
-                  </div>
-                  {r.note && <p className="mt-1 italic text-muted-foreground">"{r.note}"</p>}
-                  <p className="mt-1 text-[10px] text-muted-foreground/70">
-                    Laporan warga: {r.reporter} ·{" "}
-                    {formatAgo(Math.round((Date.now() - r.createdAt) / 60000))}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
         {/* Card Radar Anti-Getok Harga */}
         <PriceRadarCard radar={priceRadar} onOpenInfo={() => setRadarInfoOpen(true)} />
       </section>
@@ -482,12 +443,13 @@ function WarungPage() {
 
                     <button
                       type="button"
+                      aria-label={`Laporkan perubahan harga ${m.name}`}
                       onClick={() => {
                         setEditingItem(m);
                         setReportModalOpen(true);
                       }}
                       title="Laporkan perubahan harga untuk menu ini"
-                      className="grid h-8 w-8 shrink-0 place-items-center rounded-xl border border-white/10 bg-white/5 text-muted-foreground transition hover:border-amber-500/30 hover:bg-amber-500/10 hover:text-amber-300 active:scale-90"
+                      className="grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-white/10 bg-white/5 text-muted-foreground transition hover:border-amber-500/30 hover:bg-amber-500/10 hover:text-amber-300 active:scale-90"
                     >
                       <Pencil className="h-3.5 w-3.5" />
                     </button>

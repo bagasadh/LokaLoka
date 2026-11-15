@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import {
   ArrowLeft,
@@ -9,7 +9,6 @@ import {
   Receipt,
   Store,
   Trash2,
-  User,
   Utensils,
   X,
 } from "lucide-react";
@@ -54,7 +53,6 @@ type UlasanSubTab = "semua" | "saya";
 function ProfilPage() {
   const s = useStore();
   const geo = useGeo();
-  const navigate = useNavigate();
   const { tab: initialTab } = Route.useSearch();
   const [tab, setTab] = useState<"ulasan" | "favorit">(initialTab || "ulasan");
   const [ulasanSubTab, setUlasanSubTab] = useState<UlasanSubTab>("semua");
@@ -210,7 +208,7 @@ function ProfilPage() {
             </span>
 
             {s.user && (
-              <div className="inline-flex rounded-full border border-white/10 bg-[#262626] p-0.5">
+              <div className="inline-flex rounded-full border border-white/10 bg-card p-0.5">
                 {(["semua", "saya"] as const).map((t) => (
                   <button
                     key={t}

@@ -23,7 +23,7 @@ export function BottomNav({ hidden }: { hidden?: boolean } = {}) {
   return (
     <nav
       aria-label="Navigasi utama"
-      className={`fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-[#202020]/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-md transition-all duration-300 ease-in-out lg:hidden ${
+      className={`fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-background/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-md transition-all duration-300 ease-in-out lg:hidden ${
         hidden ? "translate-y-full opacity-0 pointer-events-none" : "translate-y-0 opacity-100"
       }`}
     >

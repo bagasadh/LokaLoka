@@ -173,7 +173,7 @@ export function SearchDropdown({
                       type="button"
                       aria-label={`Hapus ${item} dari riwayat`}
                       onClick={(e) => handleRemoveRecent(e, item)}
-                      className="grid h-6 w-6 shrink-0 place-items-center rounded-full text-muted-foreground hover:bg-white/10 hover:text-foreground active:scale-90"
+                      className="grid h-7 w-7 shrink-0 place-items-center rounded-full text-muted-foreground hover:bg-white/10 hover:text-foreground active:scale-90"
                     >
                       <X className="h-3 w-3" />
                     </button>
@@ -259,7 +259,7 @@ export function TopBar({
   const showDropdown = search.open;
   return (
     <div className="relative" data-search-root>
-      <label className="flex h-10 min-w-0 items-center gap-2.5 rounded-xl border border-white/10 bg-[#262626] px-3 transition-colors focus-within:border-white/30">
+      <label className="flex h-10 min-w-0 items-center gap-2.5 rounded-xl border border-white/10 bg-card px-3 transition-colors focus-within:border-white/30">
         <Search className="h-4 w-4 shrink-0 text-muted-foreground" />
         <input
           value={q}
@@ -282,7 +282,7 @@ export function TopBar({
             type="button"
             aria-label="Hapus teks pencarian"
             onClick={() => setQ("")}
-            className="grid h-6 w-6 shrink-0 place-items-center rounded-md text-muted-foreground transition-colors hover:text-foreground active:scale-95"
+            className="grid h-7 w-7 shrink-0 place-items-center rounded-md text-muted-foreground transition-colors hover:text-foreground active:scale-95"
           >
             <X className="h-3.5 w-3.5" />
           </button>

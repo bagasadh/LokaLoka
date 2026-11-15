@@ -3,39 +3,21 @@ import { ClientOnly } from "@tanstack/react-router";
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowRight,
-  Check,
-  CheckCircle2,
-  ChevronDown,
-  ChevronUp,
   CircleDollarSign,
-  Clock,
-  Coffee,
-  CreditCard,
-  Dices,
   Eye,
-  Flame,
   Heart,
-  History,
   Loader2,
   LocateFixed,
   MapPin,
   Minus,
-  Moon,
   Navigation,
   Plus,
-  Receipt,
-  Search,
-  ShieldAlert,
-  ShieldCheck,
-  Star,
-  Store,
   User,
-  Utensils,
   X,
 } from "lucide-react";
 import { toast } from "sonner";
 import { BudgetModal } from "@/components/home/BudgetModal";
-import { Chips, FILTERS, type Filter } from "@/components/home/Chips";
+import { Chips, type Filter } from "@/components/home/Chips";
 import {
   TopBar,
   type Remote,
@@ -52,13 +34,7 @@ import RouteModal from "@/components/RouteModal";
 import { Stars } from "@/components/WarungBits";
 import { locate, useGeo } from "@/lib/geo";
 import { calculateWarungPriceRadar } from "@/lib/price-radar";
-import {
-  POPULAR_FOOD_QUERIES,
-  addRecentSearch,
-  clearRecentSearches,
-  getRecentSearches,
-  removeRecentSearch,
-} from "@/lib/search-history";
+import { addRecentSearch } from "@/lib/search-history";
 import {
   fetchNearbyEats,
   isNonFoodName,
@@ -76,21 +52,13 @@ import {
   WARUNGS,
   distanceKm,
   fitsBudget,
-  formatAgo,
   formatDistance,
-  getRepresentativeItem,
-  getScheduleInsight,
   hoursLabel,
   isLateNightEatery,
   matchWarung,
-  minPrice as getMinPrice,
   openState,
-  ownerUpdatedMinAgo,
   receiptCount,
   servesKind,
-  type MenuItem,
-  type OpenState,
-  type Review,
   type Warung,
 } from "@/lib/warung-data";
 
@@ -212,6 +180,8 @@ function Home() {
 
   const selectedRef = useRef(selected);
   selectedRef.current = selected;
+  const storeRef = useRef(s);
+  storeRef.current = s;
 
   // Otomatis geser carousel kartu warung ke kartu yang sedang dipilih
   useEffect(() => {
@@ -246,6 +216,8 @@ function Home() {
     if (selectedRef.current) {
       setSelected((cur) => {
         if (!cur) return null;
+        const w = getWarung(storeRef.current, cur);
+        if (w && distanceKm(center, w) > 4.5) return null;
         return cur;
       });
     }
@@ -623,7 +595,7 @@ function Home() {
             <button
               type="button"
               onClick={() => setIsTransparent(false)}
-              className="flex items-center gap-2 rounded-full border border-amber-500/30 bg-[#202020]/90 px-3.5 py-1.5 text-xs font-semibold text-foreground shadow-float backdrop-blur-md transition-all hover:bg-[#282828] active:scale-95"
+              className="flex items-center gap-2 rounded-full border border-amber-500/30 bg-background/90 px-3.5 py-1.5 text-xs font-semibold text-foreground shadow-float backdrop-blur-md transition-all hover:bg-card active:scale-95"
             >
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-75" />
@@ -638,7 +610,7 @@ function Home() {
 
         {/* Mobile top overlay: Integrated Header */}
         <header
-          className={`pointer-events-auto absolute inset-x-0 top-0 border-b border-white/10 bg-[#202020]/95 px-3 pt-safe pb-2 backdrop-blur-md shadow-float transition-all duration-300 ease-in-out lg:hidden ${
+          className={`pointer-events-auto absolute inset-x-0 top-0 border-b border-white/10 bg-background/95 px-3 pt-safe pb-2 backdrop-blur-md shadow-float transition-all duration-300 ease-in-out lg:hidden ${
             searchOpen ? "z-40" : "z-20"
           } ${
             isTransparent
@@ -798,7 +770,7 @@ function Home() {
                 : "translate-y-0 opacity-100"
             }`}
           >
-            <div className="rounded-2xl border border-white/10 bg-[#202020]/95 p-3.5 shadow-float backdrop-blur-md">
+            <div className="rounded-2xl border border-white/10 bg-background/95 p-3.5 shadow-float backdrop-blur-md">
               <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3">
                 <img
                   src={sel.w.cover || PLACEHOLDER_COVER}

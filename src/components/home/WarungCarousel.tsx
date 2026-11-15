@@ -130,7 +130,7 @@ export function WarungCarousel({
           {/* Bar di atas carousel: Info warung di kiri, Tombol GPS di kanan */}
           <div className="mx-3 mb-2 flex items-center justify-between gap-2">
             {list.length > 0 ? (
-              <div className="flex min-w-0 flex-1 items-center justify-between rounded-xl border border-white/10 bg-[#202020]/95 px-3 py-1.5 shadow-float backdrop-blur-md">
+              <div className="flex min-w-0 flex-1 items-center justify-between rounded-xl border border-white/10 bg-background/95 px-3 py-1.5 shadow-float backdrop-blur-md">
                 <div className="flex min-w-0 flex-1 items-center gap-1.5 pr-2">
                   <span className="truncate font-display text-xs font-semibold text-foreground">
                     {areaTitle}
@@ -171,7 +171,7 @@ export function WarungCarousel({
               type="button"
               aria-label="Lokasi saya"
               onClick={goHome}
-              className="grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-white/10 bg-[#202020]/95 text-locate shadow-float backdrop-blur-md transition-transform active:scale-90"
+              className="grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-white/10 bg-background/95 text-locate shadow-float backdrop-blur-md transition-transform active:scale-90"
               title="Pusatkan peta ke lokasi saya"
             >
               <LocateFixed className="h-4 w-4" />
@@ -197,14 +197,21 @@ export function WarungCarousel({
                 return (
                   <article
                     key={w.id}
+                    tabIndex={0}
                     ref={(node) => {
                       if (node) cardRefs.current[w.id] = node;
                       else delete cardRefs.current[w.id];
                     }}
                     onClick={() => onSelect(isSelected ? null : w.id)}
-                    className={`flex w-[80vw] max-w-[305px] shrink-0 snap-center cursor-pointer flex-col justify-between rounded-2xl bg-[#202020]/95 p-3 shadow-float border backdrop-blur-md transition-all duration-200 active:scale-[0.99] ${
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        onSelect(isSelected ? null : w.id);
+                      }
+                    }}
+                    className={`flex w-[80vw] max-w-[305px] shrink-0 snap-center cursor-pointer flex-col justify-between rounded-2xl bg-background/95 p-3 shadow-float border backdrop-blur-md transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary active:scale-[0.99] ${
                       isSelected
-                        ? "border-foreground/60 ring-1 ring-foreground/30 bg-[#242424]"
+                        ? "border-foreground/60 ring-1 ring-foreground/30 bg-card"
                         : "border-white/10 hover:border-white/20"
                     }`}
                   >
@@ -246,7 +253,7 @@ export function WarungCarousel({
                                     : "Dihapus dari favorit",
                                 );
                               }}
-                              className="grid h-6 w-6 place-items-center rounded-md text-muted-foreground transition hover:bg-white/10 active:scale-90"
+                              className="grid h-8 w-8 -mr-1 -mt-1 place-items-center rounded-md text-muted-foreground transition hover:bg-white/10 active:scale-90"
                               title={
                                 isBookmarked(s, w.id) ? "Hapus dari favorit" : "Simpan ke favorit"
                               }
@@ -371,7 +378,7 @@ export function WarungCarousel({
                 );
               })
             ) : (
-              <div className="mx-auto w-[calc(100vw-2rem)] max-w-sm rounded-2xl border border-white/10 bg-[#202020]/95 p-5 text-center shadow-float backdrop-blur-md">
+              <div className="mx-auto w-[calc(100vw-2rem)] max-w-sm rounded-2xl border border-white/10 bg-background/95 p-5 text-center shadow-float backdrop-blur-md">
                 <div className="grid place-items-center gap-2 py-2 text-sm text-muted-foreground">
                   <Store className="h-7 w-7 text-muted-foreground/70" />
                   {nearby.status === "loading" || nearby.status === "idle" ? (
