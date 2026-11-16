@@ -1,29 +1,29 @@
 # Lokaloka
 
-Aplikasi pencarian warung dan tempat makan di sekitar lokasi pengguna menggunakan OpenStreetMap dan Overpass API.
+Nearby food stall and restaurant finder built with OpenStreetMap and the Overpass API.
 
-## Fitur
-- Peta interaktif untuk mendeteksi warung sekitar secara langsung tanpa API key (OpenStreetMap + Overpass).
-- Pencarian lokasi atau alamat untuk melihat warung di radius area tersebut.
-- Halaman profil warung berisi detail tempat, jam buka, dan daftar menu beserta harga.
-- Ulasan pengguna lengkap dengan rating bintang, foto, dan bukti nota/struk pembelian.
-- Mode pemilik warung untuk mengelola daftar menu dan harga.
-- Tampilan mobile-first (5.4"–6.9") dengan tema gelap (`#202020`, aksen putih), tetap bisa dibuka di desktop.
+## Features
+- Interactive map that detects nearby food stalls in real time without an API key (OpenStreetMap + Overpass).
+- Location search to list food stalls within a chosen area radius.
+- Stall profile pages with place details, opening hours, menu items, and prices.
+- User reviews with star ratings, photos, and receipt proof.
+- Owner mode for updating menu items and prices directly.
+- Mobile-first dark UI (`#202020` with white accents) sized for 5.4"–6.9" screens, also usable on desktop.
 
 ## Development
 
-Pastikan Node.js (v18+) dan npm sudah terpasang.
+Requires Node.js (v18+) and npm.
 
 ```sh
-# Install dependensi
+# Install dependencies
 npm install
 
-# Jalankan server development
+# Start dev server
 npm run dev
 
-# Jalankan test
+# Run tests
 npm test
 
-# Build untuk produksi
+# Build for production
 npm run build
 ```
